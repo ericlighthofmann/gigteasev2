@@ -86,8 +86,10 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "gigtease.users",
     # Your stuff: custom apps go here
+    "gigtease.users",
+    "gigtease.home",
+    "gigtease.create_playlist",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -155,9 +157,6 @@ STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [ROOT_DIR / 'dist']
-print ('----------------------')
-print (STATICFILES_DIRS)
-print ('----------------------')
 
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [

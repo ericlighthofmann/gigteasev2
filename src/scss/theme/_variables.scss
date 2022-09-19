@@ -92,10 +92,11 @@ $spacers: map-merge(
     10: ($spacer * 5), // 80px
     11: ($spacer * 6), // 96px
     12: ($spacer * 8), // 128px
-    13: ($spacer * 10), // 160px 
+    13: ($spacer * 10), // 160px
     14: ($spacer * 12), // 192px
-    15: ($spacer * 16), // 256px                                                     
+    15: ($spacer * 16), // 256px
     16: ($spacer * 25), // 400px
+    17: ($spacer * 25.5), // 400px
   ),
   $spacers
 );
@@ -758,7 +759,7 @@ $screenshot-box-shadow: 25px 60px 125px -25px fade-out($gray-700, .9), 16px 40px
 
 
 
-// 
+//
 // Utilities =====================================
 //
 

@@ -900,7 +900,7 @@
             <!-- Heading -->
             <h1 class="display-3 fw-bold text-white" id="welcomeHeadingSource">
               Find your next favorite <br />
-              <span class="text-warning" data-typed='{"strings": ["band", "concert", "musician", "venue", "jam"]}'></span>
+              <span class="text-warning" data-typed='{"strings": ["band", "concert", "musician", "venue", "night out", "jam"]}'></span>
             </h1>
 
 
@@ -909,7 +909,7 @@
               Discover upcoming concerts in your city with personalized Spotify playlists based on your favorite genres. No registration required.
             </p>
 
-            <button class="btn btn-primary btn-block lift">
+            <button onclick="location.href='/test/'" class="btn btn-primary btn-block lift">
               Try it out!
             </button>
 
@@ -925,17 +925,17 @@
 
             <div class="col-4">
               <h3>
-                <strong><span data-countup='{"startVal": 0}' data-to="421" data-aos data-aos-id="countup:in">0</span></strong> playlists created
+                <strong><span data-countup='{"startVal": 0}' data-to="{{ playlists_created }}" data-aos data-aos-id="countup:in">0</span></strong> playlists created.
               </h3>
             </div>
             <div class="col-4">
               <h3>
-                <strong><span data-countup='{"startVal": 0}' data-to="12132" data-aos data-aos-id="countup:in">0</span></strong> songs discovered
+                <strong><span data-countup='{"startVal": 0}' data-to="{{ songs_discovered }}" data-aos data-aos-id="countup:in">0</span></strong> songs discovered.
               </h3>
             </div>
             <div class="col-4">
               <h3>
-                <strong><span data-countup='{"startVal": 0}' data-to="366" data-aos data-aos-id="countup:in">0.0</span></strong> concerts found
+                <strong><span data-countup='{"startVal": 0}' data-to="{{ concerts_found }}" data-aos data-aos-id="countup:in">0</span></strong> concerts found.
               </h3>
             </div>
 
