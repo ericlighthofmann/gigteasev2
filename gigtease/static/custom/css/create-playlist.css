@@ -1,0 +1,35 @@
+.nav>li>a {
+    position:relative;
+    display:block;
+    padding:10px 15px;
+    text-decoration: none;
+}
+
+.wizard-card[data-color="primary"] .moving-tab {
+  background-color: #FF9500;
+}
+
+#authorize-spotify-button {
+  background-color: #FF9500;
+  color: white;
+}
+
+.btn-next {
+  color: white;
+}
+
+#distance-slider {
+  width: 100%;
+}
+
+#distance-slider::-webkit-slider-thumb {
+  background: #FF9500;
+}
+
+#distance-slider::-moz-range-thumb {
+  background: #FF9500;
+}
+
+#distance-slider::-ms-thumb {
+  background: #FF9500;
+}

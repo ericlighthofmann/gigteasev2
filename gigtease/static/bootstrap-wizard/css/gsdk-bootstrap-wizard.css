@@ -3,16 +3,16 @@
  =========================================================
  * Bootstrap Wizard - v1.1.1
  =========================================================
- 
+
  * Product Page: https://www.creative-tim.com/product/bootstrap-wizard
  * Copyright 2017 Creative Tim (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/bootstrap-wizard/blob/master/LICENSE.md)
- 
+
  =========================================================
- 
+
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
- 
+
 a {
   color: #2CA8FF;
 }
@@ -240,9 +240,9 @@ h1 .subtitle {
 .wizard-card .wizard-footer {
   padding: 0 10px;
 }
-.wizard-card .disabled {
-  display: none;
-}
+/*.wizard-card .disabled {*/
+/*  display: none;*/
+/*}*/
 .wizard-card .wizard-header h3 {
   font-weight: 200;
   text-align: center;
@@ -347,6 +347,28 @@ h1 .subtitle {
   cursor: pointer;
   font-weight: 500;
 }
+
+.wizard-card[data-color="primary"] .choice:hover .icon, .wizard-card[data-color="primary"] .choice.active .icon {
+  border-color: #ED4933;
+}
+.wizard-card[data-color="primary"] .picture:hover {
+  border-color: #ED4933;
+}
+.wizard-card[data-color="primary"] .moving-tab {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #ED4933;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+}
+
 .wizard-card .btn {
   text-transform: uppercase;
 }
