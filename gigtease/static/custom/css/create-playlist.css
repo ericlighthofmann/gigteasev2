@@ -1,8 +1,8 @@
-.nav>li>a {
-    position:relative;
-    display:block;
-    padding:10px 15px;
-    text-decoration: none;
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
 }
 
 .wizard-card[data-color="primary"] .moving-tab {
@@ -16,6 +16,36 @@
 
 .btn-next {
   color: white;
+}
+
+.btn-finish {
+  color: white;
+}
+
+.custom-form-control {
+  border: solid 1px grey;
+}
+
+.datepicker td, th {
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.datepicker table tr td.active:active,
+.datepicker table tr td.active.highlighted:active,
+.datepicker table tr td.active.active,
+.datepicker table tr td.active.highlighted.active {
+  background-color: #FF9500 !important;
+  background-image: none;
+}
+
+td.active:hover {
+  background-color: #FF9500 !important;
+}
+
+hr {
+  border: solid 1px rgba(128, 128, 128, 0.26);
 }
 
 #distance-slider {
@@ -32,4 +62,12 @@
 
 #distance-slider::-ms-thumb {
   background: #FF9500;
+}
+
+.mapboxgl-ctrl-geocoder {
+  float: right !important;
+}
+
+.mapboxgl-ctrl-geocoder {
+  width: 30vw !important;
 }

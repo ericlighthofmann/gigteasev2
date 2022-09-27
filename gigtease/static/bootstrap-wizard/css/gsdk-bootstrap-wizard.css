@@ -417,88 +417,88 @@ h1 .subtitle {
 }
 
 /*             Inputs               */
-.form-control {
-  background-color: #FFFFFF;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
-  box-shadow: none;
-  color: #444444;
-  height: 38px;
-  padding: 6px 16px;
-}
-.form-control:focus {
-  background-color: #FFFFFF;
-  border: 1px solid #9A9A9A;
-  box-shadow: none;
-  outline: 0 none;
-}
-.form-control + .form-control-feedback {
-  border-radius: 6px;
-  font-size: 14px;
-  padding: 0 12px 0 0;
-  position: absolute;
-  right: 25px;
-  top: 13px;
-  vertical-align: middle;
-}
-.has-success .form-control, .has-error .form-control, .has-success .form-control:focus, .has-error .form-control:focus {
-  border-color: #E3E3E3;
-  box-shadow: none;
-}
-.has-success .form-control,
-.form-control .has-success .form-control-feedback, .form-control.valid:focus {
-  border-color: #05AE0E;
-  color: #05AE0E;
-}
-.has-error .form-control,
-.form-control .has-error .form-control-feedback, .form-control.error {
-  color: #FF3B30;
-  border-color: #FF3B30;
-}
-.form-control:focus + .input-group-addon, .form-control:focus ~ .input-group-addon {
-  background-color: #FFFFFF;
-  border-color: #9A9A9A;
-}
-.form-control ::-moz-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-}
-.form-control ::-moz-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-}
-.form-control ::-webkit-input-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-}
-.form-control ::-ms-input-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-}
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-  background-color: #EEEEEE;
-  color: #999999;
-  cursor: not-allowed;
-}
+/*.form-control {*/
+/*  background-color: #FFFFFF;*/
+/*  border: 1px solid #E3E3E3;*/
+/*  border-radius: 4px;*/
+/*  box-shadow: none;*/
+/*  color: #444444;*/
+/*  height: 38px;*/
+/*  padding: 6px 16px;*/
+/*}*/
+/*.form-control:focus {*/
+/*  background-color: #FFFFFF;*/
+/*  border: 1px solid #9A9A9A;*/
+/*  box-shadow: none;*/
+/*  outline: 0 none;*/
+/*}*/
+/*.form-control + .form-control-feedback {*/
+/*  border-radius: 6px;*/
+/*  font-size: 14px;*/
+/*  padding: 0 12px 0 0;*/
+/*  position: absolute;*/
+/*  right: 25px;*/
+/*  top: 13px;*/
+/*  vertical-align: middle;*/
+/*}*/
+/*.has-success .form-control, .has-error .form-control, .has-success .form-control:focus, .has-error .form-control:focus {*/
+/*  border-color: #E3E3E3;*/
+/*  box-shadow: none;*/
+/*}*/
+/*.has-success .form-control,*/
+/*.form-control .has-success .form-control-feedback, .form-control.valid:focus {*/
+/*  border-color: #05AE0E;*/
+/*  color: #05AE0E;*/
+/*}*/
+/*.has-error .form-control,*/
+/*.form-control .has-error .form-control-feedback, .form-control.error {*/
+/*  color: #FF3B30;*/
+/*  border-color: #FF3B30;*/
+/*}*/
+/*.form-control:focus + .input-group-addon, .form-control:focus ~ .input-group-addon {*/
+/*  background-color: #FFFFFF;*/
+/*  border-color: #9A9A9A;*/
+/*}*/
+/*.form-control ::-moz-placeholder {*/
+/*  color: #DDDDDD;*/
+/*  opacity: 1;*/
+/*}*/
+/*.form-control ::-moz-placeholder {*/
+/*  color: #DDDDDD;*/
+/*  opacity: 1;*/
+/*}*/
+/*.form-control ::-webkit-input-placeholder {*/
+/*  color: #DDDDDD;*/
+/*  opacity: 1;*/
+/*}*/
+/*.form-control ::-ms-input-placeholder {*/
+/*  color: #DDDDDD;*/
+/*  opacity: 1;*/
+/*}*/
+/*.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {*/
+/*  background-color: #EEEEEE;*/
+/*  color: #999999;*/
+/*  cursor: not-allowed;*/
+/*}*/
 
-.input-lg {
-  height: 56px;
-  padding: 10px 16px;
-}
+/*.input-lg {*/
+/*  height: 56px;*/
+/*  padding: 10px 16px;*/
+/*}*/
 
-.input-group-addon {
-  background-color: #FFFFFF;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
-}
+/*.input-group-addon {*/
+/*  background-color: #FFFFFF;*/
+/*  border: 1px solid #E3E3E3;*/
+/*  border-radius: 4px;*/
+/*}*/
 
-.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child > .btn, .input-group-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
-  border-right: 0 none;
-}
+/*.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child > .btn, .input-group-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {*/
+/*  border-right: 0 none;*/
+/*}*/
 
-.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child) {
-  border-left: 0 none;
-}
+/*.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child) {*/
+/*  border-left: 0 none;*/
+/*}*/
 
 .btn {
   border-width: 2px;
