@@ -71,3 +71,15 @@ hr {
 .mapboxgl-ctrl-geocoder {
   width: 30vw !important;
 }
+
+.select2-container input:placeholder-shown {
+  width: 100% !important;
+}
+
+.swal2-confirm {
+  background: #FF9500 !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+  box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.5) !important;
+}

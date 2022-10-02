@@ -5,11 +5,11 @@ import spotipy
 import spotipy.util as util
 import requests
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest
 from django.core.exceptions import SuspiciousOperation
 
-def create_playlist(request):
 
+def create_playlist(request):
     # config
     default_miles = 30
 
@@ -26,7 +26,7 @@ def create_playlist(request):
         '&scope=playlist-modify-public' +
         '&response_type=code' +
         '&state=' + session_id +
-        '&show_dialog=false'
+        '&show_dialog=true'
     )
 
     return render(request, 'pages/create-playlist.html', {
@@ -38,25 +38,24 @@ def create_playlist(request):
 
 @csrf_exempt
 def get_access_token_spotify(request):
-    if DEBUG:
+    if settings.DEBUG:
         redirect_uri = 'http://127.0.0.1:8000/create-playlist'
     else:
-        redirect_uri = 'http://gigtease.com/create-playlist'
+        redirect_uri = 'https://gigtease.com/create-playlist'
     if request.method == "POST":
         base_url = 'https://accounts.spotify.com/api/token'
         data = {
-    		'grant_type': 'authorization_code',
-    		'code': request.POST.get('code'),
-    		'redirect_uri': redirect_uri,
+            'grant_type': 'authorization_code',
+            'code': request.POST.get('code'),
+            'redirect_uri': redirect_uri,
             'client_id': 'e0ac4d1f574f4242b6b7163f08dcaffe',
             'client_secret': '273590643fef46329d40d478cbd1d4ea'
-    	}
+        }
         spotify_response = requests.post(base_url, data=data)
         if spotify_response.ok:
             spotify_response = spotify_response.json()
             return JsonResponse(spotify_response)
         else:
-            return HttpResponse('Invalid response!')
+            return HttpResponseBadRequest('Bad request.')
     else:
         raise SuspiciousOperation('Invalid request - needs to come from a POST.')
-

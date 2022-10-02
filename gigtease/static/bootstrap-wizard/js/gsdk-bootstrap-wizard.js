@@ -3,13 +3,13 @@
  =========================================================
  * Bootstrap Wizard - v1.1.1
  =========================================================
- 
+
  * Product Page: https://www.creative-tim.com/product/bootstrap-wizard
  * Copyright 2017 Creative Tim (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/bootstrap-wizard/blob/master/LICENSE.md)
- 
+
  =========================================================
- 
+
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
 
@@ -183,7 +183,7 @@ $(window).resize(function(){
 });
 
 function refreshAnimation($wizard, index){
-    total_steps = $wizard.find('li').length;
+    total_steps = $wizard.find('.nav-pills').find('li').length;
     move_distance = $wizard.width() / total_steps;
     step_width = move_distance;
     move_distance *= index;
