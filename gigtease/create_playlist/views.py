@@ -7,6 +7,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest
 from django.core.exceptions import SuspiciousOperation
+from .tasks import query_seatgeek_api
 
 
 def create_playlist(request):
@@ -57,5 +58,29 @@ def get_access_token_spotify(request):
             return JsonResponse(spotify_response)
         else:
             return HttpResponseBadRequest('Bad request.')
+    else:
+        raise SuspiciousOperation('Invalid request - needs to come from a POST.')
+
+
+@csrf_exempt
+def create_playlist_in_progress(request, task_id):
+    return render(request, 'pages/create-playlist-in-progress.html', {
+        'task_id': task_id
+    })
+
+
+@csrf_exempt
+def kick_off_seatgeek_api_query(request):
+    if request.method == "POST":
+        location_zip = request.POST.get('locationZip', '')
+        location_name = request.POST.get('locationName', '')
+        genres = request.POST.getlist('genres[]', '')
+        start_date = request.POST.get('startDate', '')
+        end_date = request.POST.get('endDate', '')
+        distance = request.POST.get('distance', '')
+        auth_token = request.POST.get('auth_token', '')
+        result = query_seatgeek_api.delay(location_zip, location_name, genres, start_date, end_date, distance,
+                                          auth_token)
+        return HttpResponse(result.task_id)
     else:
         raise SuspiciousOperation('Invalid request - needs to come from a POST.')

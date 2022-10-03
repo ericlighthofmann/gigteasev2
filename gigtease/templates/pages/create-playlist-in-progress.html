@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% load manifest %}
+  {% load static %}
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% manifest '/assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon"/>
+
+  <!-- Map CSS -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"/>
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="{% manifest '/assets/css/libs.bundle.css' %}"/>
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{% manifest '/assets/css/theme.bundle.css' %}"/>
+
+  <!-- custom css -->
+  <link href="{% static 'custom/css/create-playlist-in-progress.css' %}" rel="stylesheet"/>
+
+  <!-- Title -->
+  <title>GigTease - Create Playlist In Progress</title>
+
+  <!--     Fonts and icons     -->
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- navbar include -->
+
+
+<div class="image-container set-full-height whole-page-container"
+     style="display: none; background-image: url({% manifest '/assets/img/covers/concert9.jpg' %})">
+
+  {% include "partials/navbar.html" %}
+
+  <!--   Big container   -->
+  <div class="container">
+    <div class="row align-items-center" style="min-height: 80vh;">
+      <div class="card col-12">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div> <!-- row -->
+  </div> <!--  big container -->
+
+</div>
+
+
+</body>
+
+<!-- theme js -->
+<script src="{% manifest '/assets/js/theme.bundle.js' %}"></script>
+<script src="{% manifest '/assets/js/vendor.bundle.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  $(document).ready(function () {
+    $('.image-container').fadeIn(2000);
+  });
+</script>
+
+</html>
+

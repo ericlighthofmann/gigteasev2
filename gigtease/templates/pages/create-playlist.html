@@ -32,7 +32,7 @@
   <link href="{% static 'custom/css/create-playlist.css' %}" rel="stylesheet"/>
 
   <!-- Title -->
-  <title>GigTease</title>
+  <title>GigTease - Create Playlist</title>
 
   <!--     Fonts and icons     -->
   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
@@ -47,11 +47,11 @@
 <div class="image-container set-full-height whole-page-container"
      style="display: none; background-image: url({% manifest '/assets/img/covers/concert4.jpg' %})">
 
-{#  {% include "partials/navbar.html" %}#}
+  {% include "partials/navbar.html" %}
 
   <!--   Big container   -->
   <div class="container">
-    <div class="row">
+    <div class="row align-items-center" style="min-height: 80vh;">
       <div class="col">
 
         <!--      Wizard container        -->
@@ -611,15 +611,28 @@
               '<i class="fa fa-thumbs-up"></i> Let\'s go!',
             cancelButtonText: 'Keep editing',
             preConfirm: function () {
+              $('.swal2-confirm').html(
+                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' +
+                '<span> Working...</span>'
+              )
+              $('.swal2-confirm').addClass('disabled');
                 // get access token from get-access-token-spotify-view
+              console.log(code);
               $.post("/get-access-token-spotify/",
                 {code: code},
                 function (data, status) {
                   let auth_token = data['access_token'];
                   payload['auth_token'] = auth_token;
+                  kick_off_seatgeek();
+
+                  function kick_off_seatgeek(){
+                    $.post("/kick-off-seatgeek-api-query/", payload, function(result){
+                      window.location.replace("/create-playlist-in-progress/" + result);
+                    });
+                  }
                 }
               ).fail(function(response) {
-                alert ('that didnt work')
+                //alert ('that didnt work')
               });
               return false
             }

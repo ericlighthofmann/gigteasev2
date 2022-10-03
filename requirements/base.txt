@@ -6,6 +6,8 @@ whitenoise==6.2.0  # https://github.com/evansd/whitenoise
 redis==4.3.4  # https://github.com/redis/redis-py
 celery==5.2.7  # pyup: < 6.0  # https://github.com/celery/celery
 django-celery-beat==2.3.0  # https://github.com/celery/django-celery-beat
+django-celery-results==2.4.0
+celery-progress-0.1.2
 
 # Django
 # ------------------------------------------------------------------------------
