@@ -330,3 +330,6 @@ gigtease/media/
 
 # environmental files
 .env
+
+# virtual env
+myvenv/
