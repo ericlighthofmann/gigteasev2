@@ -44,10 +44,32 @@
     <div class="row align-items-center" style="min-height: 80vh;">
       <div class="card col-12">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <h3><strong>Building playlist...</strong>
+            <div class="spinner-border ms-auto float-end" role="status" aria-hidden="true"></div>
+          </h3>
+          <!-- seatgeek progress bar -->
+          <div id="seatgeek-progress-bar-container" style="display: none;">
+            <div class='progress-wrapper'>
+              <div id='seatgeek-progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+            </div>
+            <div id="seatgeek-progress-bar-message">Waiting for progress to start...</div>
+          </div>
+          <!-- end seatgeek progress bar -->
+          <!-- spotify progress bar -->
+          <div id="spotify-progress-bar-container" style="display: none;">
+            <div class='progress-wrapper'>
+              <div id='spotify-progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+            </div>
+            <div id="spotify-progress-bar-message">Waiting for progress to start...</div>
+          </div>
+          <!-- end seatgeek progress bar -->
+          <ul class="actions special" id='spotify-link-holder' style='display: none; margin-top: 3vh;'>
+            <li class='col-md-6 col-sm-12'><a id='concert-info-link' href="" class="button primary">View Concert and
+              Ticket Info</a></li>
+            <li class='col-md-6 col-sm-12'><a id='spotify-link' href="" class="button primary">View Spotify Playlist</a>
+            </li>
+          </ul>
+          <a id='spotify-link'></a>
         </div>
       </div>
     </div> <!-- row -->
@@ -67,10 +89,96 @@
 <!-- sweet alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- celery progress -->
+<script src="{% static 'custom/js/celery_progress.js' %}"></script>
+
+<!-- fade in page -->
 <script>
   $(document).ready(function () {
     $('.image-container').fadeIn(2000);
+    console.log({{ payload|safe }}[0])
   });
+</script>
+
+<!-- seatgeek api call and progress bar -->
+<script>
+  function customResult(progressBarElement, progressBarMessageElement, result) {
+    progressBarElement.style.backgroundColor = 'rgba(12, 112, 12, .9)';
+    let results_url = '/get-seatgeek-query-results/' + '{{task_id}}';
+    $.get(results_url, function (data, status) {
+      seatgeek_task_id = data.task_id;
+      seatgeek_event_info = data.event_info
+      progressBarMessageElement.innerHTML = "Collected a list of " + data.all_performers.toLocaleString() + " bands coming to your town from SeatGeek!";
+      //startQueryTicketmaster(data);
+      startSpotifyPlaylist();
+    });
+  }
+
+  function customOnProgress(progressBarElement, progressBarMessageElement, progress) {
+    progressBarElement.style.backgroundColor = 'grey';
+    $(progressBarElement).animate({width: progress.percent + "%"}, 300);
+    progressBarMessageElement.innerHTML = 'Searching Seatgeek for bands coming to your town: ' + parseInt(progress.percent) + '% complete.';
+  }
+
+  $(function () {
+    $('#seatgeek-progress-bar-container').slideDown();
+    var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+    CeleryProgressBar.initProgressBar(
+      progressUrl,
+      {
+        onProgress: customOnProgress,
+        onSuccess: customResult,
+        progressBarId: 'seatgeek-progress-bar',
+        progressBarMessageId: 'seatgeek-progress-bar-message',
+      }
+    );
+  });
+</script>
+
+<!-- spotify playlist creation and progress bar -->
+<script>
+  function startSpotifyPlaylist() {
+    $.get('/kick-off-spotify/' + seatgeek_task_id + '/', function (data, status) {
+      var auth_token = data['auth_token'];
+      spotify_task_id = data['task_id'];
+      $('#total-bands-found-message').text("We've found " + data['total_bands'] + " unique bands!");
+      $('#total-bands-found-message').fadeIn();
+      createPlaylist(spotify_task_id, auth_token);
+    });
+
+    function customResultSpotify(progressBarElement, progressBarMessageElement) {
+      progressBarElement.style.backgroundColor = 'rgba(12, 112, 12, .9)';
+      var results_url = '/get-spotify-playlist-results/' + spotify_task_id
+      $.get(results_url, function (data, status) {
+        var spotify_playlist_href = data['spotify_playlist_link'];
+        var concert_info_href = data['concert_info_link'];
+        progressBarMessageElement.innerHTML = 'Done! Check your Spotify or click the links below for concert and ticket information.';
+        $('#spotify-link').prop('href', spotify_playlist_href);
+        $('#concert-info-link').prop('href', concert_info_href);
+        $('#spotify-link-holder').show();
+      });
+    }
+
+    function customOnProgressSpotify(progressBarElement, progressBarMessageElement, progress) {
+      progressBarElement.style.backgroundColor = 'grey';
+      $(progressBarElement).animate({width: progress.percent + "%"}, 300);
+      progressBarMessageElement.innerHTML = 'Creating your Spotify playlist: ' + progress.percent + '% complete.';
+    }
+
+    function createPlaylist(spotify_task_id, auth_token) {
+      $('#spotify-progress-bar-container').slideDown();
+      var progressUrl = "/celery-progress/" + spotify_task_id + '/';
+      CeleryProgressBar.initProgressBar(
+        progressUrl,
+        {
+          onSuccess: customResultSpotify,
+          onProgress: customOnProgressSpotify,
+          progressBarId: 'spotify-progress-bar',
+          progressBarMessageId: 'spotify-progress-bar-message',
+        }
+      );
+    };
+  };
 </script>
 
 </html>

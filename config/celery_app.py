@@ -13,5 +13,8 @@ app = Celery("gigtease")
 #   should have a `CELERY_` prefix.
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
+# we need this for celery to write the results to the database
+app.conf.update(result_extended=True)
+
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()

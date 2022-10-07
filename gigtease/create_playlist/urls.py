@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     # UI screen for collecting parameters for playlist before creation
     path("create-playlist/", views.create_playlist, name="create_playlist"),
+    path("write-payload-and-task-id-to-db/", views.write_payload_and_task_id_to_db, name="write_padload_and_task_id_to_db"),
 
     # view/template for progress bars and ops in progress
     path('create-playlist-in-progress/<str:task_id>/', views.create_playlist_in_progress,
@@ -14,5 +15,9 @@ urlpatterns = [
     path('get-access-token-spotify/', views.get_access_token_spotify),
 
     # urls for vendor api queries
-    path('kick-off-seatgeek-api-query/', views.kick_off_seatgeek_api_query),
+    path('get-seatgeek-query-results/<str:task_id>/', views.get_seatgeek_query_results),
+
+    # url for creating spotify playlist
+    path('kick-off-spotify/<str:seatgeek_task_id>/', views.kick_off_spotify),
+    path('get-spotify-playlist-results/<str:task_id>/', views.get_spotify_playlist_results),
 ]

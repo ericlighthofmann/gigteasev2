@@ -554,6 +554,7 @@
         'startDate': null,
         'endDate': null,
         'distance': null,
+        'task_id': null,
       }
       let code = window.location.toString().split('code=')[1].split('&state=')[0];
       // get currentCity and currentZipCode from mapbox and update payload
@@ -616,22 +617,28 @@
                 '<span> Working...</span>'
               )
               $('.swal2-confirm').addClass('disabled');
-                // get access token from get-access-token-spotify-view
-              console.log(code);
+              // get access token from get-access-token-spotify-view
               $.post("/get-access-token-spotify/",
                 {code: code},
                 function (data, status) {
                   let auth_token = data['access_token'];
                   payload['auth_token'] = auth_token;
-                  kick_off_seatgeek();
+                  move_to_create_playlist_in_progress();
 
-                  function kick_off_seatgeek(){
-                    $.post("/kick-off-seatgeek-api-query/", payload, function(result){
-                      window.location.replace("/create-playlist-in-progress/" + result);
-                    });
+                  function move_to_create_playlist_in_progress() {
+                    let task_id = Date.now().toString(36) + Math.random().toString(36).substring(2);
+                    payload['task_id'] = task_id;
+                    console.log(payload);
+                    // write payload and task id to database
+                    $.post("/write-payload-and-task-id-to-db/",
+                      payload,
+                      function (data, status) {
+                        window.location.replace("/create-playlist-in-progress/" + task_id);
+                      }
+                    )
                   }
                 }
-              ).fail(function(response) {
+              ).fail(function (response) {
                 //alert ('that didnt work')
               });
               return false
