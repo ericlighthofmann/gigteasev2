@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path("", include('gigtease.home.urls')),
     path("", include('gigtease.create_playlist.urls')),
+    path("", include('gigtease.playlist_dashboard.urls')),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),

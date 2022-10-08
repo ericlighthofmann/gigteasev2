@@ -85,6 +85,7 @@ THIRD_PARTY_APPS = [
     'django_celery_results',
     'manifest_loader',
     'celery_progress',
+    'playlist_dashboard',
 ]
 
 LOCAL_APPS = [

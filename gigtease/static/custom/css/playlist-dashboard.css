@@ -1,0 +1,7 @@
+.image-container {
+  min-height: 100vh;
+  background-position: center center;
+  background-size: cover;
+}
+
+/*body { padding-top: 170px; }*/

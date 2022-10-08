@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% load manifest %}
+  {% load static %}
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% manifest '/assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon"/>
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="{% manifest '/assets/css/libs.bundle.css' %}"/>
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{% manifest '/assets/css/theme.bundle.css' %}"/>
+
+  <!-- custom CSS -->
+  <link href="{% static 'custom/css/playlist-dashboard.css' %}" rel="stylesheet"/>
+
+  <!-- datatables -->
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+
+  <!--     Fonts and icons     -->
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+  <!-- Title -->
+  <title>GigTease - Playlist Dashboard</title>
+
+</head>
+
+<body>
+
+<div class="image-container set-full-height whole-page-container"
+     style="display: none; background-image: url({% manifest '/assets/img/covers/concert9.jpg' %})">
+
+  {% include "partials/navbar.html" with top_type="sticky_top" %}
+
+
+  <!--   Big container   -->
+  <div class="container-fluid col-11">
+    <div class="row align-items-center">
+      <div class="card mt-50">
+        <div class="card-body">
+          <table id="concert-info-datatable" class="display compact" style='width: 100%;'>
+            <thead>
+            <th>Artist/Song</th>
+            <th>Concert Date</th>
+            <th>Venue Name</th>
+            <th>Address</th>
+            <th>Tickets</th>
+            </thead>
+            <tbody>
+            {% for band, song in band_song_results.items %}
+              <tr>
+                <td id={{ song.embed_code }} data-search='{{ band }} {{ song.track_name }}' data-sort='{{ band }}'>
+                  <iframe src="{{ song.embed_code }}" width="90%" height="80" allow="encrypted-media"></iframe>
+                </td>
+                <td>{{ song.date }}</td>
+                <td>{{ song.venue_name }}</td>
+                <td><a href='https://maps.google.com/?q={{ song.venue_address }}'
+                       target="_blank">{{ song.venue_address }}</a></td>
+                <td><a href="{{ song.seatgeek_ticket_url }}" target="_blank" class="button primary">Buy Tickets</a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div> <!-- row -->
+  </div> <!--  big container -->
+
+</div> <!--  big container -->
+
+
+</body>
+
+<!-- theme js -->
+<script src="{% manifest '/assets/js/theme.bundle.js' %}"></script>
+<script src="{% manifest '/assets/js/vendor.bundle.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<!-- datatables -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- fade in page and set any global vars -->
+<script>
+  $(document).ready(function () {
+    $('.image-container').fadeIn(2000);
+
+    $('#concert-info-datatable').DataTable({
+      'scrollX': true,
+      scrollY: '70vh',
+    });
+  });
+</script>
+
+</html>
+

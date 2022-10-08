@@ -196,7 +196,7 @@ def get_spotify_playlist_results(request, task_id):
     result = create_spotify_playlist.AsyncResult(task_id.replace('_seatgeek', '_spotify'))
     with allow_join_result():
         spotify_playlist_link = result.get()['created_playlist_url']
-        concert_info_link = '/dashboard/' + task_id
+        concert_info_link = '/playlist-dashboard/' + task_id
         return JsonResponse({
             'spotify_playlist_link': spotify_playlist_link,
             'concert_info_link': concert_info_link,
