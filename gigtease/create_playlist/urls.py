@@ -20,4 +20,7 @@ urlpatterns = [
     # url for creating spotify playlist
     path('kick-off-spotify/<str:seatgeek_task_id>/', views.kick_off_spotify),
     path('get-spotify-playlist-results/<str:task_id>/', views.get_spotify_playlist_results),
+
+    # reset tasks for reset dev button
+    path('reset-create-playlist-tasks/', views.reset_create_playlist_tasks),
 ]

@@ -39,16 +39,22 @@
 
   {% include "partials/navbar.html" %}
 
+  {% if request.user.is_superuser %}
+    <button class="btn btn-primary" id="reset-view-button" style="z-index: 99999; position: absolute;">DEV: Reset</button>
+  {% endif %}
+
   <!--   Big container   -->
   <div class="container">
     <div class="row align-items-center" style="min-height: 80vh;">
       <div class="card col-12">
         <div class="card-body">
-          <h3><strong>Building playlist...</strong>
+          <h3 id="server-status-message"><strong>Building playlist...</strong>
             <div class="spinner-border ms-auto float-end" role="status" aria-hidden="true"></div>
           </h3>
+          <hr>
           <!-- seatgeek progress bar -->
-          <div id="seatgeek-progress-bar-container" style="display: none;">
+          <div id="seatgeek-progress-bar-container" class="mt-5" style="display: none;">
+            <h3>Seatgeek</h3>
             <div class='progress-wrapper'>
               <div id='seatgeek-progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
             </div>
@@ -56,20 +62,24 @@
           </div>
           <!-- end seatgeek progress bar -->
           <!-- spotify progress bar -->
-          <div id="spotify-progress-bar-container" style="display: none;">
+          <div id="spotify-progress-bar-container" class="mt-5" style="display: none;">
+            <h3>Spotify</h3>
             <div class='progress-wrapper'>
               <div id='spotify-progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
             </div>
             <div id="spotify-progress-bar-message">Waiting for progress to start...</div>
           </div>
           <!-- end seatgeek progress bar -->
-          <ul class="actions special" id='spotify-link-holder' style='display: none; margin-top: 3vh;'>
-            <li class='col-md-6 col-sm-12'><a id='concert-info-link' href="" class="button primary">View Concert and
-              Ticket Info</a></li>
-            <li class='col-md-6 col-sm-12'><a id='spotify-link' href="" class="button primary">View Spotify Playlist</a>
-            </li>
-          </ul>
-          <a id='spotify-link'></a>
+          <div id="spotify-link-holder" class="mt-5" style="display: none;">
+            <div class="row justify-content-around">
+              <button id="concert-info-link" onclick="alert('here');" class="btn btn-primary lift col-4">
+                Very Concert and Ticket Info
+              </button>
+              <button id="spotify-link" href="" class="btn btn-primary lift col-4">
+                View Spotify Playlist
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div> <!-- row -->
@@ -92,19 +102,37 @@
 <!-- celery progress -->
 <script src="{% static 'custom/js/celery_progress.js' %}"></script>
 
-<!-- fade in page -->
+<!-- dev reset button -->
+<script src="{% static 'custom/js/dev_create_playlist.js' %}"></script>
+
+<!-- fade in page and set any global vars -->
 <script>
   $(document).ready(function () {
     $('.image-container').fadeIn(2000);
     console.log({{ payload|safe }}[0])
+
+    loadingSpinnerHTML = '<div class="spinner-border ms-auto float-end" role="status" aria-hidden="true"></div></h3>'
   });
+</script>
+
+<!-- update server-status-message -->
+<script>
+  function updateServerStatusMessage(message) {
+    let messageFormatted = '<h3><strong>STATUS: ' + message + '</strong>'
+    if (message != 'Playlist created!') {
+      messageFormatted = messageFormatted + loadingSpinnerHTML
+    }
+    $('#server-status-message').html(
+      messageFormatted
+    )
+  }
 </script>
 
 <!-- seatgeek api call and progress bar -->
 <script>
   function customResult(progressBarElement, progressBarMessageElement, result) {
     progressBarElement.style.backgroundColor = 'rgba(12, 112, 12, .9)';
-    let results_url = '/get-seatgeek-query-results/' + '{{task_id}}';
+    let results_url = '/get-seatgeek-query-results/' + '{{task_id}}' + '_seatgeek';
     $.get(results_url, function (data, status) {
       seatgeek_task_id = data.task_id;
       seatgeek_event_info = data.event_info
@@ -122,7 +150,8 @@
 
   $(function () {
     $('#seatgeek-progress-bar-container').slideDown();
-    var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+    updateServerStatusMessage('Querying Seatgeek...')
+    var progressUrl = "{% url 'celery_progress:task_status' task_id|add:'_seatgeek' %}";
     CeleryProgressBar.initProgressBar(
       progressUrl,
       {
@@ -138,11 +167,10 @@
 <!-- spotify playlist creation and progress bar -->
 <script>
   function startSpotifyPlaylist() {
+    $('#spotify-progress-bar-container').slideDown();
     $.get('/kick-off-spotify/' + seatgeek_task_id + '/', function (data, status) {
       var auth_token = data['auth_token'];
-      spotify_task_id = data['task_id'];
-      $('#total-bands-found-message').text("We've found " + data['total_bands'] + " unique bands!");
-      $('#total-bands-found-message').fadeIn();
+      spotify_task_id = data['task_id'].replace('_seatgeek', '_spotify');
       createPlaylist(spotify_task_id, auth_token);
     });
 
@@ -153,8 +181,10 @@
         var spotify_playlist_href = data['spotify_playlist_link'];
         var concert_info_href = data['concert_info_link'];
         progressBarMessageElement.innerHTML = 'Done! Check your Spotify or click the links below for concert and ticket information.';
-        $('#spotify-link').prop('href', spotify_playlist_href);
-        $('#concert-info-link').prop('href', concert_info_href);
+
+        updateServerStatusMessage('Playlist created!');
+        $("#spotify-link").attr("onclick", 'window.open("' + spotify_playlist_href + '", "_blank")');
+        $('#concert-info-link').attr("onclick", 'window.location.href = "' + concert_info_href + '"');
         $('#spotify-link-holder').show();
       });
     }
@@ -162,11 +192,11 @@
     function customOnProgressSpotify(progressBarElement, progressBarMessageElement, progress) {
       progressBarElement.style.backgroundColor = 'grey';
       $(progressBarElement).animate({width: progress.percent + "%"}, 300);
-      progressBarMessageElement.innerHTML = 'Creating your Spotify playlist: ' + progress.percent + '% complete.';
+      progressBarMessageElement.innerHTML = 'Creating your Spotify playlist: ' + parseInt(progress.percent) + '% complete.';
     }
 
     function createPlaylist(spotify_task_id, auth_token) {
-      $('#spotify-progress-bar-container').slideDown();
+      updateServerStatusMessage('Creating Spotify playlist...')
       var progressUrl = "/celery-progress/" + spotify_task_id + '/';
       CeleryProgressBar.initProgressBar(
         progressUrl,

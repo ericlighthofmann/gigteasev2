@@ -98,7 +98,6 @@ def create_spotify_playlist(self, auth_token, all_bands, start_date, end_date, l
     band_song_dict = {}
     for i, artist in enumerate(all_bands):
         logger.info(artist)
-        time.sleep(.1)
         progress_recorder.set_progress(i, len(all_bands))
         top_tracks_list = []
         # search by artist name to get the artist uri
