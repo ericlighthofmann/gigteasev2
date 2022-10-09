@@ -561,8 +561,11 @@
       let fetchUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + currentLongitude + ',' + currentLatitude + '.json?&access_token=' + mapboxglAccessToken;
 
       function getCurrentCityAndZip(data) {
-        currentCity = data['features'][3]['text'];
-        currentZipCode = data['features'][2]['text'];
+        // response object (data) can be a variable length, need to find by id
+        zipCodeIdx = data['features'].findIndex(x => x.id.includes('postcode'));
+        cityIdx = data['features'].findIndex(x => x.id.includes('place'));
+        currentCity = data['features'][cityIdx]['text'];
+        currentZipCode = data['features'][zipCodeIdx]['text'];
         payload['locationZip'] = currentZipCode;
         payload['locationName'] = currentCity;
       }
@@ -584,8 +587,6 @@
           payload['distance'] = currentDistance;
 
           // display sweet alert with the payload collected and confirm playlist creation
-          console.log(payload);
-
           function formatGenresForDisplay(genres) {
             if (!genres) {
               return 'All genres selected'
@@ -628,7 +629,6 @@
                   function move_to_create_playlist_in_progress() {
                     let task_id = Date.now().toString(36) + Math.random().toString(36).substring(2);
                     payload['task_id'] = task_id;
-                    console.log(payload);
                     // write payload and task id to database
                     $.post("/write-payload-and-task-id-to-db/",
                       payload,

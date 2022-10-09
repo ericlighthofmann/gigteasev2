@@ -137,7 +137,7 @@ def create_spotify_playlist(self, auth_token, all_bands, start_date, end_date, l
     # create playlist based off of all tracks collected
     logger.info('creating playlist...')
     if playlist_tracks:
-        # TODO parser.parse is super slow - should just send over a date object in the correct string, not times
+        # TODO parser.parse is slow - should just send over a date object in the correct string, not times
         start_time = dateformat.format(
             parser.parse(start_date), 'M jS Y'
         )

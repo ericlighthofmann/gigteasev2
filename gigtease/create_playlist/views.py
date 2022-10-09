@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django_celery_results.models import TaskResult
 
-from .models import Playlist
+from .models import PlaylistInProgress, CreatedPlaylist
 from .tasks import query_seatgeek_api, create_spotify_playlist
 
 
@@ -78,7 +78,7 @@ def write_payload_and_task_id_to_db(request):
         distance = request.POST.get('distance')
         task_id = request.POST.get('task_id') + '_seatgeek'
         auth_token = request.POST.get('auth_token')
-        Playlist.objects.update_or_create(
+        PlaylistInProgress.objects.update_or_create(
             task_id=task_id,
             defaults={
                 'location_zip': location_zip,
@@ -112,11 +112,11 @@ def reset_create_playlist_tasks(request):
 
 @csrf_exempt
 def create_playlist_in_progress(request, task_id):
-    payload = Playlist.objects.filter(
-        task_id=task_id+'_seatgeek'
+    payload = PlaylistInProgress.objects.filter(
+        task_id=task_id + '_seatgeek'
     ).values()
-    task_status = query_seatgeek_api.AsyncResult(task_id+'_seatgeek').status
-    print ('seatgeek_task_status: ', str(task_status))
+    task_status = query_seatgeek_api.AsyncResult(task_id + '_seatgeek').status
+    print('seatgeek_task_status: ', str(task_status))
     if task_status != 'SUCCESS':
         query_seatgeek_api.apply_async(
             kwargs={
@@ -128,7 +128,7 @@ def create_playlist_in_progress(request, task_id):
                 'distance': payload[0]['distance'],
                 'auth_token': payload[0]['auth_token']
             },
-            task_id=task_id+'_seatgeek',
+            task_id=task_id + '_seatgeek',
         )
     payload = json.dumps(list(payload), default=str)
     return render(request, 'pages/create-playlist-in-progress.html', {
@@ -141,7 +141,6 @@ def create_playlist_in_progress(request, task_id):
 def get_seatgeek_query_results(request, task_id):
     result = query_seatgeek_api.AsyncResult(task_id, app=app)
     with allow_join_result():
-
         return JsonResponse({
             'all_performers': len(list(result.get()['all_performers'])),
             'event_info': result.get()['event_info'],
@@ -157,8 +156,8 @@ def get_seatgeek_query_results(request, task_id):
 
 @csrf_exempt
 def kick_off_spotify(request, seatgeek_task_id):
-    print ('kick_off_spotify view called')
-    print (seatgeek_task_id)
+    print('kick_off_spotify view called')
+    print(seatgeek_task_id)
     seatgeek_result = query_seatgeek_api.AsyncResult(seatgeek_task_id)
     with allow_join_result():
         all_bands_seatgeek = seatgeek_result.get()['all_performers']
@@ -184,15 +183,21 @@ def kick_off_spotify(request, seatgeek_task_id):
                 },
                 task_id=seatgeek_task_id.replace('_seatgeek', '_spotify'),
             )
+            # write to meta data for front page
+            CreatedPlaylist.objects.create(
+                song_count=len(all_bands),
+                concert_count=len(all_event_info, )
+            )
         return JsonResponse({
             'total_bands': str(len(all_bands)),
             'task_id': seatgeek_task_id,
         })
 
+
 @csrf_exempt
 def get_spotify_playlist_results(request, task_id):
-    print ('get_spotify_playlist_results view called')
-    print (task_id)
+    print('get_spotify_playlist_results view called')
+    print(task_id)
     result = create_spotify_playlist.AsyncResult(task_id.replace('_seatgeek', '_spotify'))
     with allow_join_result():
         spotify_playlist_link = result.get()['created_playlist_url']

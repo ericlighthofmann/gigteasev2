@@ -53,8 +53,9 @@
             <tbody>
             {% for band, song in band_song_results.items %}
               <tr>
-                <td id={{ song.embed_code }} data-search='{{ band }} {{ song.track_name }}' data-sort='{{ band }}'>
-                  <iframe src="{{ song.embed_code }}" width="90%" height="80" allow="encrypted-media"></iframe>
+                <td class="embed-cell" id={{ song.embed_code }} data-search='
+                {{ band }} {{ song.track_name }}' data-sort='{{ band }}'>
+                <iframe src="{{ song.embed_code }}" width="100%" height="80" allow="encrypted-media"></iframe>
                 </td>
                 <td>{{ song.date }}</td>
                 <td>{{ song.venue_name }}</td>
@@ -82,21 +83,32 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+<!-- moment js -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
 <!-- datatables -->
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.12.1/sorting/datetime-moment.js"></script>
 
 <!-- sweet alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 <!-- fade in page and set any global vars -->
 <script>
   $(document).ready(function () {
     $('.image-container').fadeIn(2000);
 
+    $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
     $('#concert-info-datatable').DataTable({
       'scrollX': true,
       scrollY: '70vh',
+      columnDefs: [
+        {
+          "targets": [1,2,3,4], // your case first column
+          "className": "text-center",
+        },
+      ],
     });
   });
 </script>
