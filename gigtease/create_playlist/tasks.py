@@ -1,16 +1,19 @@
 import time
 from datetime import datetime
-from dateutil import parser
 
 import requests
 import spotipy
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from celery_progress.backend import ProgressRecorder
+from dateutil import parser
 from django.utils import dateformat
 from spotipy.oauth2 import SpotifyClientCredentials
 
+from config.settings.base import SEATGEEK_CLIENT_ID
+
 logger = get_task_logger(__name__)
+
 
 # run celery with celery -A config.celery_app worker --loglevel=INFO -P solo
 
@@ -20,8 +23,6 @@ def query_seatgeek_api(self, location_zip, location_name, genres, start_date, en
 
     # configure user inputs for api call
     distance = str(distance) + 'mi'
-    # api key
-    client_id = 'MTY5MTMzMjB8MTU1OTc4OTQxNi40Ng'
 
     api_call_data = [
         'geoip=' + str(location_zip) + '&range=' + distance,
@@ -29,12 +30,13 @@ def query_seatgeek_api(self, location_zip, location_name, genres, start_date, en
         'datetime_local.gt=' + start_date,
         'datetime_local.lt=' + end_date,
         'genres.slug=' + genres,
-        #'listing_count.gt=0',
+        # 'listing_count.gt=0',
         'taxonomies.name=concert'
     ]
 
     # this is our base call function
-    base_url = 'https://api.seatgeek.com/2/events?client_id=' + client_id
+    base_url = 'https://api.seatgeek.com/2/events?client_id=' + SEATGEEK_CLIENT_ID
+
     def api_call(modifiers):
         modified_url = base_url
         for modifier in modifiers:
@@ -51,7 +53,7 @@ def query_seatgeek_api(self, location_zip, location_name, genres, start_date, en
             for event_idx, event in enumerate(val):
                 # add artificial sleep to make the progress bar look cooler...
                 time.sleep(.01)
-                progress_recorder.set_progress(event_idx+1, len(val))
+                progress_recorder.set_progress(event_idx + 1, len(val))
                 ticket_url = event['url']
                 date = event['datetime_local']
                 venue_name = event['venue']['name']
@@ -66,7 +68,7 @@ def query_seatgeek_api(self, location_zip, location_name, genres, start_date, en
                         all_performers.append(current_performer)
                         current_event = {}
                         current_event['artist_name'] = current_performer
-                        current_event['ticket_url'] = ticket_url
+                        current_event['ticket_url'] = ticket_url + '?client_id=' + SEATGEEK_CLIENT_ID
                         current_event['date'] = date
                         current_event['venue_name'] = venue_name
                         current_event['venue_address'] = venue_address
@@ -123,7 +125,7 @@ def create_spotify_playlist(self, auth_token, all_bands, start_date, end_date, l
                 ticketmaster_ticket_url = all_event_info_obj['ticket_url']
                 band_song_dict[artist] = {
                     'track_name': track_name,
-                    'embed_code': 'https://open.spotify.com/embed/track/'+track_uri.split('spotify:track:')[1],
+                    'embed_code': 'https://open.spotify.com/embed/track/' + track_uri.split('spotify:track:')[1],
                     'date': date,
                     'venue_name': venue_name,
                     'venue_address': venue_address,
@@ -145,8 +147,8 @@ def create_spotify_playlist(self, auth_token, all_bands, start_date, end_date, l
             parser.parse(end_date), 'M jS Y'
         )
         playlist_name = ('GigTease - bands coming to ' + location_name +
-            ' between ' + start_time + ' and ' + end_time
-        )
+                         ' between ' + start_time + ' and ' + end_time
+                         )
 
         created_playlist = spotify.user_playlist_create(spotify_username, playlist_name, public=True)
         created_playlist_id = created_playlist['id']

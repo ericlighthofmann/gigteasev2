@@ -1,17 +1,13 @@
+import time
+from datetime import datetime
 import requests
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
-from tqdm import tqdm
-import time
-import json
-import pprint
-import re
 
 from django.core.management.base import BaseCommand
 
+from config.settings.base import SEATGEEK_CLIENT_ID
 
 class Command(BaseCommand):
-
     help = 'Uses the SeatGeek API to get concerts for each location.'
 
     def handle(self, *args, **options):
@@ -25,10 +21,8 @@ class Command(BaseCommand):
         # configure user inputs for api call
         date_modifier = datetime.strftime(
             datetime.now() + relativedelta(weeks=int(time_period))
-        , '%Y-%m-%d')
+            , '%Y-%m-%d')
         distance = str(distance) + 'mi'
-        # api key
-        client_id = 'MTY5MTMzMjB8MTU1OTc4OTQxNi40Ng'
 
         api_call_data = [
             'geoip=' + location_zip + '&range=' + distance,
@@ -40,7 +34,8 @@ class Command(BaseCommand):
         ]
 
         # this is our base call function
-        base_url = 'https://api.seatgeek.com/2/events?client_id=' + client_id
+        base_url = 'https://api.seatgeek.com/2/events?client_id=' + SEATGEEK_CLIENT_ID
+
         def api_call(modifiers):
             modified_url = base_url
             for modifier in modifiers:
@@ -72,7 +67,6 @@ class Command(BaseCommand):
 
         query_results = {
             'all_performers': all_performers,
-
         }
 
         print('Found ' + str(len(all_performers)) + ' performers from Seatgeek!')

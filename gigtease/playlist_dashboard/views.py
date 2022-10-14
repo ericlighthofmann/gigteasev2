@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from create_playlist.tasks import create_spotify_playlist
+from gigtease.create_playlist.tasks import create_spotify_playlist
 
 def playlist_dashboard(request, task_id):
     result = create_spotify_playlist.AsyncResult(task_id)

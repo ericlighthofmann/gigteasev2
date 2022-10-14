@@ -85,7 +85,6 @@ THIRD_PARTY_APPS = [
     'django_celery_results',
     'manifest_loader',
     'celery_progress',
-    'playlist_dashboard',
 ]
 
 LOCAL_APPS = [
@@ -93,6 +92,7 @@ LOCAL_APPS = [
     "gigtease.users",
     "gigtease.home",
     "gigtease.create_playlist",
+    'gigtease.playlist_dashboard',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -315,3 +315,5 @@ SOCIALACCOUNT_FORMS = {"signup": "gigtease.users.forms.UserSocialSignupForm"}
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+SEATGEEK_CLIENT_ID = 'MTY5MTMzMjB8MTU1OTc4OTQxNi40Ng'
+TICKETMASTER_CLIENT_ID = 'vQtUwod3pGmdb6217kSvoOsI5A7E2KEi'
