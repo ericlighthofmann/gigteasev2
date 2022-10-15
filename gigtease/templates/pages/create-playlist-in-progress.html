@@ -1,21 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
+  {% load manifest %}
   {% load static %}
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="{% static '/assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon"/>
+  <link rel="shortcut icon" href="{% manifest '/assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon"/>
 
   <!-- Map CSS -->
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"/>
 
   <!-- Libs CSS -->
-  <link rel="stylesheet" href="{% static '/assets/css/libs.bundle.css' %}"/>
+  <link rel="stylesheet" href="{% manifest '/assets/css/libs.bundle.css' %}"/>
 
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="{% static '/assets/css/theme.bundle.css' %}"/>
+  <link rel="stylesheet" href="{% manifest '/assets/css/theme.bundle.css' %}"/>
 
   <!-- custom css -->
   <link href="{% static 'custom/css/create-playlist-in-progress.css' %}" rel="stylesheet"/>
@@ -34,7 +35,7 @@
 
 
 <div class="image-container set-full-height whole-page-container"
-     style="display: none; background-image: url({% static '/assets/img/covers/concert9.jpg' %})">
+     style="display: none; background-image: url({% manifest '/assets/img/covers/concert9.jpg' %})">
 
   {% include "partials/navbar.html" %}
 
@@ -90,8 +91,8 @@
 </body>
 
 <!-- theme js -->
-<script src="{% static '/assets/js/theme.bundle.js' %}"></script>
-<script src="{% static '/assets/js/vendor.bundle.js' %}"></script>
+<script src="{% manifest '/assets/js/theme.bundle.js' %}"></script>
+<script src="{% manifest '/assets/js/vendor.bundle.js' %}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
