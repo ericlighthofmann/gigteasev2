@@ -83,7 +83,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_celery_beat",
     'django_celery_results',
-    'manifest_loader',
+    # 'manifest_loader',
     'celery_progress',
 ]
 
