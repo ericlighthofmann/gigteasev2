@@ -162,7 +162,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     ROOT_DIR / 'dist',
     ROOT_DIR / 'gigtease/static',
-    ROOT_DIR / 'staticfiles',
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders

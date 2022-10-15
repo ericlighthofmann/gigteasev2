@@ -57,6 +57,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 # STATIC
 # ------------------------
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+MANIFEST_LOADER = {
+    'cache': True,
+}
 # MEDIA
 # ------------------------------------------------------------------------------
 
