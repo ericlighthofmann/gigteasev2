@@ -128,11 +128,11 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '../logs/gigtease_system.log',
-        },
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': '../logs/gigtease_system.log',
+        # },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
