@@ -1,5 +1,3 @@
-//TODO change the URL and set it via debug or not debug in settings
-
 {
   "libs.css": "http://localhost:9000/static/./assets/css/libs.bundle.css",
   "theme.css": "http://localhost:9000/static/./assets/css/theme.bundle.css",
