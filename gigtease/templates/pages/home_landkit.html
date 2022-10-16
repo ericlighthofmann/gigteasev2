@@ -1,28 +1,28 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    {% load static %}
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  {% load static %}
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon" />
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon"/>
 
-    <!-- Map CSS -->
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" />
+  <!-- Map CSS -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"/>
 
-    <!-- Libs CSS -->
-    <link rel="stylesheet" href="{% static 'assets/css/libs.bundle.css' %}" />
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/libs.bundle.css' %}"/>
 
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="{% static 'assets/css/theme.bundle.css' %}" />
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/theme.bundle.css' %}"/>
 
-    <!-- Title -->
-    <title>GigTease</title>
-  </head>
-  <body>
+  <!-- Title -->
+  <title>GigTease</title>
+</head>
+<body>
 
-    <!-- region ExampleModals_unused -->
+<!-- region ExampleModals_unused -->
 {#    <div class="modal fade" id="modalExample" tabindex="-1" role="dialog" aria-labelledby="modalExampleTitle" aria-hidden="true">#}
 {#      <div class="modal-dialog modal-dialog-centered" role="document">#}
 {#        <div class="modal-content">#}
@@ -104,9 +104,9 @@
 {#        </div>#}
 {#      </div>#}
 {#    </div>#}
-    <!-- endregion  (_ -->
+<!-- endregion  (_ -->
 
-    <!-- region SignupHorizontalModal_unused -->
+<!-- region SignupHorizontalModal_unused -->
 {#    <div class="modal fade" id="modalSignupHorizontal" tabindex="-1" role="dialog" aria-labelledby="modalSignupHorizontalTitle" aria-hidden="true">#}
 {#      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">#}
 {#        <div class="modal-content">#}
@@ -177,9 +177,9 @@
 {#        </div>#}
 {#      </div>#}
 {#    </div>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region SignUpVerticalModalModal_unused -->
+<!-- region SignUpVerticalModalModal_unused -->
 {#    <div class="modal fade" id="modalSignupVertical" tabindex="-1" role="dialog" aria-labelledby="modalSignupVerticalTitle" aria-hidden="true">#}
 {#      <div class="modal-dialog modal-dialog-centered" role="document">#}
 {#        <div class="modal-content">#}
@@ -247,9 +247,9 @@
 {#        </div>#}
 {#      </div>#}
 {#    </div>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region SigninHorizontalModal_unused -->
+<!-- region SigninHorizontalModal_unused -->
 {#    <div class="modal fade" id="modalSigninHorizontal" tabindex="-1" role="dialog" aria-labelledby="modalSigninHorizontalTitle" aria-hidden="true">#}
 {#      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">#}
 {#        <div class="modal-content">#}
@@ -320,9 +320,9 @@
 {#        </div>#}
 {#      </div>#}
 {#    </div>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region SigninVerticalModal_unused -->
+<!-- region SigninVerticalModal_unused -->
 {#    <div class="modal fade" id="modalSigninVertical" tabindex="-1" role="dialog" aria-labelledby="modalSigninVerticalTitle" aria-hidden="true">#}
 {#      <div class="modal-dialog modal-dialog-centered" role="document">#}
 {#        <div class="modal-content">#}
@@ -390,9 +390,9 @@
 {#        </div>#}
 {#      </div>#}
 {#    </div>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region PaymentModal_unused -->
+<!-- region PaymentModal_unused -->
 {#    <div class="modal fade" id="modalPayment" tabindex="-1" role="dialog" aria-labelledby="modalPaymentTitle" aria-hidden="true">#}
 {#      <div class="modal-dialog modal-dialog-centered" role="document">#}
 {#        <div class="modal-content">#}
@@ -443,347 +443,358 @@
 {#        </div>#}
 {#      </div>#}
 {#    </div>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- navbar include -->
-    {% include "partials/navbar.html" %}
+<!-- navbar include -->
+{% include "partials/navbar.html" %}
 
-    <!-- region HeroCover -->
-    <section data-jarallax data-speed=".8" class="pt-12 pb-10 pt-md-15 pb-md-14 push-left" style="background: linear-gradient(to top, rgba(58,58,58,0.36), rgba(3,3,3,0.38)), url({% static 'assets/img/covers/cover-concert-cropped.jpg' %})">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-12 col-md-8 col-lg-6">
+<!-- region HeroCover -->
+<section data-jarallax data-speed=".8" class="pt-12 pb-10 pt-md-15 pb-md-14 push-left"
+         style="background: linear-gradient(to top, rgba(58,58,58,0.36), rgba(3,3,3,0.38)), url({% static 'assets/img/covers/cover-concert-cropped.jpg' %})">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-8 col-lg-6">
+
+        <!-- Heading -->
+        <h1 class="display-3 fw-bold text-white" id="welcomeHeadingSource">
+          Find your next favorite <br/>
+          <span class="text-warning"
+                data-typed='{"strings": ["band", "concert", "musician", "venue", "night out", "jam"]}'></span>
+        </h1>
+
+
+        <!-- Text -->
+        <p class="fs-lg text-white-80 mb-6">
+          Discover upcoming concerts in your city with personalized Spotify playlists based on your favorite genres. No
+          registration required.
+        </p>
+
+        <button onclick="location.href='{% url "create_playlist" %}'" class="btn btn-primary btn-block lift">
+          Try it out!
+        </button>
+
+      </div>
+    </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</section>
+<!-- endregion -->
+
+<!-- region StatsCountUp -->
+<section class="py-6 bg-warning text-center">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-4">
+        <h3>
+          <strong><span data-countup='{"startVal": 0}' data-to="{{ playlists_created }}" data-aos
+                        data-aos-id="countup:in">0</span></strong> playlists created.
+        </h3>
+      </div>
+      <div class="col-4">
+        <h3>
+          <strong><span data-countup='{"startVal": 0}' data-to="{{ songs_discovered }}" data-aos
+                        data-aos-id="countup:in">0</span></strong> songs discovered.
+        </h3>
+      </div>
+      <div class="col-4">
+        <h3>
+          <strong><span data-countup='{"startVal": 0}' data-to="{{ concerts_found }}" data-aos data-aos-id="countup:in">0</span></strong>
+          concerts found.
+        </h3>
+      </div>
+
+    </div>
+  </div> <!-- / .container -->
+</section>
+<!-- endregion -->
+
+<!-- region HowDoesGigTeaseWork -->
+<section class="pt-8 pt-md-8">
+  <div class="container">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-12 col-md-6">
+
+        {#            <!-- Preheading -->#}
+        {#            <h6 class="text-uppercase text-primary fw-bold">#}
+        {#              How does GigTease work?#}
+        {#            </h6>#}
+
+        <!-- Heading -->
+        <h2 class="text-primary">
+          How does GigTease work?
+        </h2>
+
+        <!-- Text -->
+        <p class="lead text-muted mb-6 mb-md-0">
+          GigTease connects to your Spotify account and finds upcoming concerts near you based on bands you care about.
+        </p>
+
+      </div>
+      <div class="col-12 col-md-6 col-xl-5">
+
+        <div class="row gx-0">
+          <div class="col-4">
+
+            <!-- Image -->
+            <div class="w-150 mt-9 p-1 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="100">
+              <img src="{% static 'assets/img/photos/concert.jpg' %}" class="img-fluid" alt="...">
+            </div>
+
+          </div>
+          <div class="col-4">
+
+            <!-- Image -->
+            <div class="w-150 p-1 bg-white shadow-lg" data-aos="fade-up">
+              <img src="{% static 'assets/img/photos/concert2.jpg' %}" class="img-fluid" alt="...">
+            </div>
+
+          </div>
+          <div class="col-4 position-relative">
+
+            <!-- Image -->
+            <div class="w-150 mt-11 float-end p-1 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="150">
+              <img src="{% static 'assets/img/photos/concert3.jpg' %}" class="img-fluid" alt="...">
+            </div>
+
+          </div>
+        </div> <!-- / .row -->
+
+      </div>
+    </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</section>
+<!-- endregion -->
+
+<!-- region HowDoesGigTeaseWorkSteps -->
+<section class="pt-8 pb-9 pt-md-8 pb-md-8">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div class="row">
+          <div class="col-auto col-md-12">
+
+            <!-- Step -->
+            <div class="row gx-0 align-items-center mb-md-5">
+              <div class="col-auto">
+
+                <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
+                  <span>1</span>
+                </a>
+
+              </div>
+              <div class="col">
+
+                <hr class="d-none d-md-block me-n7">
+
+              </div>
+            </div> <!-- / .row -->
+
+          </div>
+          <div class="col col-md-12 ms-n5 ms-md-0">
 
             <!-- Heading -->
-            <h1 class="display-3 fw-bold text-white" id="welcomeHeadingSource">
-              Find your next favorite <br />
-              <span class="text-warning" data-typed='{"strings": ["band", "concert", "musician", "venue", "night out", "jam"]}'></span>
-            </h1>
-
+            <h3>
+              Connect
+            </h3>
 
             <!-- Text -->
-            <p class="fs-lg text-white-80 mb-6">
-              Discover upcoming concerts in your city with personalized Spotify playlists based on your favorite genres. No registration required.
+            <p class="text-muted mb-6 mb-md-0">
+              Authorize Gigtease to connect to your Spotify account. We will only use your account to create new
+              playlists.
             </p>
-
-            <button onclick="location.href='{% url "create_playlist" %}'" class="btn btn-primary btn-block lift">
-              Try it out!
-            </button>
 
           </div>
         </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </section>
-    <!-- endregion -->
-
-    <!-- region StatsCountUp -->
-    <section class="py-6 bg-warning text-center">
-      <div class="container">
+      </div>
+      <div class="col-12 col-md-4">
         <div class="row">
+          <div class="col-auto col-md-12">
 
-            <div class="col-4">
-              <h3>
-                <strong><span data-countup='{"startVal": 0}' data-to="{{ playlists_created }}" data-aos data-aos-id="countup:in">0</span></strong> playlists created.
-              </h3>
-            </div>
-            <div class="col-4">
-              <h3>
-                <strong><span data-countup='{"startVal": 0}' data-to="{{ songs_discovered }}" data-aos data-aos-id="countup:in">0</span></strong> songs discovered.
-              </h3>
-            </div>
-            <div class="col-4">
-              <h3>
-                <strong><span data-countup='{"startVal": 0}' data-to="{{ concerts_found }}" data-aos data-aos-id="countup:in">0</span></strong> concerts found.
-              </h3>
-            </div>
+            <!-- Step -->
+            <div class="row gx-0 align-items-center mb-md-5">
+              <div class="col-auto">
 
-        </div>
-      </div> <!-- / .container -->
-    </section>
-    <!-- endregion -->
+                <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
+                  <span>2</span>
+                </a>
 
-    <!-- region HowDoesGigTeaseWork -->
-    <section class="pt-8 pt-md-8">
-      <div class="container">
-        <div class="row align-items-center justify-content-between">
-          <div class="col-12 col-md-6">
+              </div>
+              <div class="col">
 
-{#            <!-- Preheading -->#}
-{#            <h6 class="text-uppercase text-primary fw-bold">#}
-{#              How does GigTease work?#}
-{#            </h6>#}
+                <hr class="d-none d-md-block me-n7">
+
+              </div>
+            </div> <!-- / .row -->
+
+          </div>
+          <div class="col col-md-12 ms-n5 ms-md-0">
 
             <!-- Heading -->
-            <h2 class="text-primary">
-              How does GigTease work?
-            </h2>
+            <h3>
+              Preferences
+            </h3>
 
             <!-- Text -->
-            <p class="lead text-muted mb-6 mb-md-0">
-              GigTease connects to your Spotify account and finds upcoming concerts near you based on bands you care about.
+            <p class="text-muted mb-6 mb-md-0">
+              Input the parameters including genre, time period, and distance from you that GigTease should use to build
+              your new custom playlist.
             </p>
 
           </div>
-          <div class="col-12 col-md-6 col-xl-5">
-
-            <div class="row gx-0">
-              <div class="col-4">
-
-                <!-- Image -->
-                <div class="w-150 mt-9 p-1 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                  <img src="{% static 'assets/img/photos/concert.jpg' %}" class="img-fluid" alt="...">
-                </div>
-
-              </div>
-              <div class="col-4">
-
-                <!-- Image -->
-                <div class="w-150 p-1 bg-white shadow-lg" data-aos="fade-up">
-                  <img src="{% static 'assets/img/photos/concert2.jpg' %}" class="img-fluid" alt="...">
-                </div>
-
-              </div>
-              <div class="col-4 position-relative">
-
-                <!-- Image -->
-                <div class="w-150 mt-11 float-end p-1 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="150">
-                  <img src="{% static 'assets/img/photos/concert3.jpg' %}" class="img-fluid" alt="...">
-                </div>
-
-              </div>
-            </div> <!-- / .row -->
-
-          </div>
         </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </section>
-    <!-- endregion -->
-
-    <!-- region HowDoesGigTeaseWorkSteps -->
-    <section class="pt-8 pb-9 pt-md-8 pb-md-8">
-      <div class="container">
+      </div>
+      <div class="col-12 col-md-4">
         <div class="row">
-          <div class="col-12 col-md-4">
-            <div class="row">
-              <div class="col-auto col-md-12">
+          <div class="col-auto col-md-12">
 
-                <!-- Step -->
-                <div class="row gx-0 align-items-center mb-md-5">
-                  <div class="col-auto">
+            <!-- Step -->
+            <div class="row gx-0 align-items-center mb-md-5">
+              <div class="col-auto">
 
-                    <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
-                      <span>1</span>
-                    </a>
-
-                  </div>
-                  <div class="col">
-
-                    <hr class="d-none d-md-block me-n7">
-
-                  </div>
-                </div> <!-- / .row -->
-
-              </div>
-              <div class="col col-md-12 ms-n5 ms-md-0">
-
-                <!-- Heading -->
-                <h3>
-                  Connect
-                </h3>
-
-                <!-- Text -->
-                <p class="text-muted mb-6 mb-md-0">
-                  Authorize Gigtease to connect to your Spotify account. We will only use your account to create new playlists.
-                </p>
+                <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
+                  <span>3</span>
+                </a>
 
               </div>
             </div> <!-- / .row -->
+
           </div>
-          <div class="col-12 col-md-4">
-            <div class="row">
-              <div class="col-auto col-md-12">
+          <div class="col col-md-12 ms-n5 ms-md-0">
 
-                <!-- Step -->
-                <div class="row gx-0 align-items-center mb-md-5">
-                  <div class="col-auto">
+            <!-- Heading -->
+            <h3>
+              Compile
+            </h3>
 
-                    <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
-                      <span>2</span>
-                    </a>
+            <!-- Text -->
+            <p class="text-muted mb-0">
+              Gigtease will find all the artists playing shows (based on your preferences) from SeatGeek and
+              Ticketmaster's database.
+            </p>
 
-                  </div>
-                  <div class="col">
-
-                    <hr class="d-none d-md-block me-n7">
-
-                  </div>
-                </div> <!-- / .row -->
-
-              </div>
-              <div class="col col-md-12 ms-n5 ms-md-0">
-
-                <!-- Heading -->
-                <h3>
-                  Preferences
-                </h3>
-
-                <!-- Text -->
-                <p class="text-muted mb-6 mb-md-0">
-                  Input the parameters including genre, time period, and distance from you that GigTease should use to build your new custom playlist.
-                </p>
-
-              </div>
-            </div> <!-- / .row -->
-          </div>
-          <div class="col-12 col-md-4">
-            <div class="row">
-              <div class="col-auto col-md-12">
-
-                <!-- Step -->
-                <div class="row gx-0 align-items-center mb-md-5">
-                  <div class="col-auto">
-
-                    <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
-                      <span>3</span>
-                    </a>
-
-                  </div>
-                </div> <!-- / .row -->
-
-              </div>
-              <div class="col col-md-12 ms-n5 ms-md-0">
-
-                <!-- Heading -->
-                <h3>
-                  Compile
-                </h3>
-
-                <!-- Text -->
-                <p class="text-muted mb-0">
-                  Gigtease will find all the artists playing shows (based on your preferences) from SeatGeek and Ticketmaster's database.
-                </p>
-
-              </div>
-            </div> <!-- / .row -->
           </div>
         </div> <!-- / .row -->
-        <div class="row mt-5">
-          <div class="col-12 col-md-4">
-            <div class="row">
-              <div class="col-auto col-md-12">
+      </div>
+    </div> <!-- / .row -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-4">
+        <div class="row">
+          <div class="col-auto col-md-12">
 
-                <!-- Step -->
-                <div class="row gx-0 align-items-center mb-md-5">
-                  <div class="col-auto">
+            <!-- Step -->
+            <div class="row gx-0 align-items-center mb-md-5">
+              <div class="col-auto">
 
-                    <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
-                      <span>4</span>
-                    </a>
-
-                  </div>
-                  <div class="col">
-
-                    <hr class="d-none d-md-block me-n7">
-
-                  </div>
-                </div> <!-- / .row -->
+                <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
+                  <span>4</span>
+                </a>
 
               </div>
-              <div class="col col-md-12 ms-n5 ms-md-0">
+              <div class="col">
 
-                <!-- Heading -->
-                <h3>
-                  Create
-                </h3>
-
-                <!-- Text -->
-                <p class="text-muted mb-6 mb-md-0">
-                  GigTease will generate a new Spotify playlist with the top song from each artist we found.
-                </p>
+                <hr class="d-none d-md-block me-n7">
 
               </div>
             </div> <!-- / .row -->
+
           </div>
-          <div class="col-12 col-md-4">
-            <div class="row">
-              <div class="col-auto col-md-12">
+          <div class="col col-md-12 ms-n5 ms-md-0">
 
-                <!-- Step -->
-                <div class="row gx-0 align-items-center mb-md-5">
-                  <div class="col-auto">
+            <!-- Heading -->
+            <h3>
+              Create
+            </h3>
 
-                    <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
-                      <span>5</span>
-                    </a>
+            <!-- Text -->
+            <p class="text-muted mb-6 mb-md-0">
+              GigTease will generate a new Spotify playlist with the top song from each artist we found.
+            </p>
 
-                  </div>
-                  <div class="col">
-
-                    <hr class="d-none d-md-block me-n7">
-
-                  </div>
-                </div> <!-- / .row -->
-
-              </div>
-              <div class="col col-md-12 ms-n5 ms-md-0">
-
-                <!-- Heading -->
-                <h3>
-                  Listen
-                </h3>
-
-                <!-- Text -->
-                <p class="text-muted mb-6 mb-md-0">
-                  Either listen to your newly created playlist in GigTease or open up your Spotify app to discover new bands and concerts!
-                </p>
-
-              </div>
-            </div> <!-- / .row -->
-          </div>
-          <div class="col-12 col-md-4">
-            <div class="row">
-              <div class="col-auto col-md-12">
-
-                <!-- Step -->
-                <div class="row gx-0 align-items-center mb-md-5">
-                  <div class="col-auto">
-
-                    <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
-                      <span>6</span>
-                    </a>
-
-                  </div>
-                </div> <!-- / .row -->
-
-              </div>
-              <div class="col col-md-12 ms-n5 ms-md-0">
-
-                <!-- Heading -->
-                <h3>
-                  Showtime
-                </h3>
-
-                <!-- Text -->
-                <p class="text-muted mb-0">
-                  If you dig any of the bands you hear, click the "Buy Ticket" button in GigTease to buy tickets to their show!
-                </p>
-
-              </div>
-            </div> <!-- / .row -->
           </div>
         </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </section>
-    <!-- endregion -->
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="row">
+          <div class="col-auto col-md-12">
 
-    <!-- region PageBreakCurve__unused -->
+            <!-- Step -->
+            <div class="row gx-0 align-items-center mb-md-5">
+              <div class="col-auto">
+
+                <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
+                  <span>5</span>
+                </a>
+
+              </div>
+              <div class="col">
+
+                <hr class="d-none d-md-block me-n7">
+
+              </div>
+            </div> <!-- / .row -->
+
+          </div>
+          <div class="col col-md-12 ms-n5 ms-md-0">
+
+            <!-- Heading -->
+            <h3>
+              Listen
+            </h3>
+
+            <!-- Text -->
+            <p class="text-muted mb-6 mb-md-0">
+              Either listen to your newly created playlist in GigTease or open up your Spotify app to discover new bands
+              and concerts!
+            </p>
+
+          </div>
+        </div> <!-- / .row -->
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="row">
+          <div class="col-auto col-md-12">
+
+            <!-- Step -->
+            <div class="row gx-0 align-items-center mb-md-5">
+              <div class="col-auto">
+
+                <a href="#!" class="btn btn-sm btn-rounded-circle btn-gray-400 disabled opacity-1">
+                  <span>6</span>
+                </a>
+
+              </div>
+            </div> <!-- / .row -->
+
+          </div>
+          <div class="col col-md-12 ms-n5 ms-md-0">
+
+            <!-- Heading -->
+            <h3>
+              Showtime
+            </h3>
+
+            <!-- Text -->
+            <p class="text-muted mb-0">
+              If you dig any of the bands you hear, click the "Buy Ticket" button in GigTease to buy tickets to their
+              show!
+            </p>
+
+          </div>
+        </div> <!-- / .row -->
+      </div>
+    </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</section>
+<!-- endregion -->
+
+<!-- region PageBreakCurve__unused -->
 {#    <div class="position-relative">#}
 {#      <div class="shape shape-bottom shape-fluid-x text-light">#}
 {#        <svg viewBox="0 0 2880 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M720 28H0v28h2880V28h-720S1874 0 1440 0 720 28 720 28z" fill="currentColor"/></svg>      </div>#}
 {#    </div>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region LatestPosts_unused -->
+<!-- region LatestPosts_unused -->
 {#    <section class="py-8 py-md-11 bg-gradient-light-white">#}
 {#      <div class="container">#}
 {#        <div class="row align-items-center">#}
@@ -1044,9 +1055,9 @@
 {#        </div> <!-- / .row -->#}
 {#      </div> <!-- / .container -->#}
 {#    </section>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region PlacementRates_unused -->
+<!-- region PlacementRates_unused -->
 {#    <section>#}
 {#      <div class="container py-8 pt-md-11 pb-md-9 border-top">#}
 {#        <div class="row">#}
@@ -1094,23 +1105,30 @@
 {#        </div> <!-- / .row -->#}
 {#      </div> <!-- / .container -->#}
 {#    </section>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region BigDiagonalParallax -->
-    <section data-jarallax data-speed=".8" class="py-14 py-lg-16 jarallax" style="background-image: url({% static 'assets/img/covers/concert6.jpg' %});">
+<!-- region BigDiagonalParallax -->
+<section data-jarallax data-speed=".8" class="py-14 py-lg-16 jarallax"
+         style="background-image: url({% static 'assets/img/covers/concert6.jpg' %});">
 
-      <!-- Shape -->
-      <div class="shape shape-top shape-fluid-x text-white">
-        <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h2880v125h-720L720 250H0V0z" fill="currentColor"/></svg>      </div>
+  <!-- Shape -->
+  <div class="shape shape-top shape-fluid-x text-white">
+    <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h2880v125h-720L720 250H0V0z" fill="currentColor"/>
+    </svg>
+  </div>
 
-      <!-- Shape -->
-      <div class="shape shape-bottom shape-fluid-x text-light">
-        <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M720 125L2160 0h720v250H0V125h720z" fill="currentColor"/></svg>      </div>
+  <!-- Shape -->
+  <div class="shape shape-bottom shape-fluid-x text-light">
+    <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M720 125L2160 0h720v250H0V125h720z" fill="currentColor"/>
+    </svg>
+  </div>
 
-    </section>
-    <!-- endregion -->
+</section>
+<!-- endregion -->
 
-    <!-- region About_unused -->
+<!-- region About_unused -->
 {#    <section class="py-8 py-md-11 bg-light">#}
 {#      <div class="container">#}
 {#        <div class="row align-items-center">#}
@@ -1197,234 +1215,51 @@
 {#        </div> <!-- / .row -->#}
 {#      </div> <!-- / .container -->#}
 {#    </section>#}
-    <!-- endregion -->
+<!-- endregion -->
 
-    <!-- region CallToAction -->
-    <section class="pt-6 pt-md-8">
-      <div class="container pb-6 pb-md-8 border-bottom">
-        <div class="row align-items-center">
-          <div class="col-12 col-md">
+<!-- region CallToAction -->
+<section class="pt-6 pt-md-8 mb-5">
+  <div class="container pb-6 pb-md-8 border-bottom">
+    <div class="row align-items-center">
+      <div class="col-12 col-md">
 
-            <!-- Heading -->
-            <h3 class="mb-1">
-              Discover new bands coming to your town
-            </h3>
+        <!-- Heading -->
+        <h3 class="mb-1">
+          Discover new bands coming to your town
+        </h3>
 
-            <!-- Text -->
-            <p class="fs-lg text-muted mb-6 mb-md-0">
-              No sign up required!
-            </p>
+        <!-- Text -->
+        <p class="fs-lg text-muted mb-6 mb-md-0">
+          No sign up required!
+        </p>
 
-          </div>
-          <div class="col-12 col-md-auto">
+      </div>
+      <div class="col-12 col-md-auto">
 
 
-            <a href="{% url "create_playlist" %}" class="btn btn-primary lift">
-              Try it out!
-            </a>
+        <a href="{% url "create_playlist" %}" class="btn btn-primary lift">
+          Try it out!
+        </a>
 
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </section>
-    <!-- endregion -->
+      </div>
+    </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</section>
+<!-- endregion -->
 
-    <!-- region FOOTER -->
-    <footer class="py-8 py-md-11 bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-4 col-lg-3">
+<!-- region FOOTER -->
+{% include 'partials/footer.html' with bg_color="bg-white" %}
+<!-- endregion -->
 
-            <!-- Brand -->
-            <img src="{% static 'assets/img/brand.svg' %}" alt="..." class="footer-brand img-fluid mb-2">
+<!-- JAVASCRIPT -->
+<!-- Map JS -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 
-            <!-- Text -->
-            <p class="text-gray-700 mb-2">
-              A better way to build.
-            </p>
+<!-- Vendor JS -->
+<script src="{% static 'assets/js/vendor.bundle.js' %}"></script>
 
-            <!-- Social -->
-            <ul class="list-unstyled list-inline list-social mb-6 mb-md-0">
-              <li class="list-inline-item list-social-item me-3">
-                <a href="#!" class="text-decoration-none">
-                  <img src="{% static 'assets/img/icons/social/instagram.svg' %}" class="list-social-icon" alt="...">
-                </a>
-              </li>
-              <li class="list-inline-item list-social-item me-3">
-                <a href="#!" class="text-decoration-none">
-                  <img src="{% static 'assets/img/icons/social/facebook.svg' %}" class="list-social-icon" alt="...">
-                </a>
-              </li>
-              <li class="list-inline-item list-social-item me-3">
-                <a href="#!" class="text-decoration-none">
-                  <img src="{% static 'assets/img/icons/social/twitter.svg' %}" class="list-social-icon" alt="...">
-                </a>
-              </li>
-              <li class="list-inline-item list-social-item">
-                <a href="#!" class="text-decoration-none">
-                  <img src="{% static 'assets/img/icons/social/pinterest.svg' %}" class="list-social-icon" alt="...">
-                </a>
-              </li>
-            </ul>
+<!-- Theme JS -->
+<script src="{% static 'assets/js/theme.bundle.js' %}"></script>
 
-          </div>
-          <div class="col-6 col-md-4 col-lg-2">
-
-            <!-- Heading -->
-            <h6 class="fw-bold text-uppercase text-gray-700">
-              Products
-            </h6>
-
-            <!-- List -->
-            <ul class="list-unstyled text-muted mb-6 mb-md-8 mb-lg-0">
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Page Builder
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  UI Kit
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Styleguide
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="text-reset">
-                  Changelog
-                </a>
-              </li>
-            </ul>
-
-          </div>
-          <div class="col-6 col-md-4 col-lg-2">
-
-            <!-- Heading -->
-            <h6 class="fw-bold text-uppercase text-gray-700">
-              Services
-            </h6>
-
-            <!-- List -->
-            <ul class="list-unstyled text-muted mb-6 mb-md-8 mb-lg-0">
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Documentation
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Changelog
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Pagebuilder
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="text-reset">
-                  UI Kit
-                </a>
-              </li>
-            </ul>
-
-          </div>
-          <div class="col-6 col-md-4 offset-md-4 col-lg-2 offset-lg-0">
-
-            <!-- Heading -->
-            <h6 class="fw-bold text-uppercase text-gray-700">
-              Connect
-            </h6>
-
-            <!-- List -->
-            <ul class="list-unstyled text-muted mb-0">
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Page Builder
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  UI Kit
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Styleguide
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Documentation
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Changelog
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="text-reset">
-                  Changelog
-                </a>
-              </li>
-            </ul>
-
-          </div>
-          <div class="col-6 col-md-4 col-lg-2">
-
-            <!-- Heading -->
-            <h6 class="fw-bold text-uppercase text-gray-700">
-              Legal
-            </h6>
-
-            <!-- List -->
-            <ul class="list-unstyled text-muted mb-0">
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Documentation
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!" class="text-reset">
-                  Changelog
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="text-reset">
-                  Pagebuilder
-                </a>
-              </li>
-            </ul>
-
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </footer>
-    <!-- endregion -->
-
-    <!-- JAVASCRIPT -->
-    <!-- Map JS -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-
-    <!-- Vendor JS -->
-    <script src="{% static 'assets/js/vendor.bundle.js' %}"></script>
-
-    <!-- Theme JS -->
-    <script src="{% static 'assets/js/theme.bundle.js' %}"></script>
-
-  </body>
+</body>
 </html>

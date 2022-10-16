@@ -1,0 +1,20 @@
+{% load static %}
+
+<footer class="py-8 py-md-8 {{ bg_color }}" style="border-top: solid 1px grey;">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 col-md-4 col-lg-4 text-center">
+        <h3>Powered by Seatgeek, Ticketmaster and Spotify.</h3>
+      </div>
+      <div class="col-4 col-md-4 col-lg-4">
+        <!-- Brand -->
+        <img src="{% static 'assets/img/gigtease_brand_dark.png' %}" alt="..." class="footer-brand img-fluid mb-2">
+      </div>
+      <div class="col-4 col-md-4 col-lg-4 text-center">
+        <h3>&copy; GigTease {% now "Y" %}</h3>
+        <h3 class="mb-0"><a href="mailto:gigtease@gmail.com?Subject=Oh hello!" style="border-bottom:none"><i class="fe fe-mail"></i> Contact Us</a></h3>
+      </div>
+
+    </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</footer>
