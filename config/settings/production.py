@@ -131,7 +131,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '../../logs/gigtease_system.log',
+            'filename': '../logs/gigtease_system.log',
         },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
