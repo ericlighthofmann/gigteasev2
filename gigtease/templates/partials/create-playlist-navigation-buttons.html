@@ -1,0 +1,19 @@
+<div id="navigation-buttons-container" class="mt-5">
+  {% if show_finish == 'show' %}
+    <button class="btn btn-primary btn-rounded pull-right navigation-button finish-button"><span>Finish</span>
+    </button>
+  {% else %}
+    {% if disable_next != 'disabled' %}
+      <button class="btn btn-primary btn-rounded pull-right navigation-button next-button"><span>Next</span>
+      </button>
+    {% else %}
+      <button class="disabled btn btn-primary btn-rounded pull-right navigation-button next-button"><span>Next</span>
+      </button>
+    {% endif %}
+  {% endif %}
+  {% if disable_previous != 'disabled' %}
+    <button class="btn btn-outline-primary btn-rounded pull-left navigation-button previous-button">
+      <span>Previous </span>
+    </button>
+  {% endif %}
+</div>

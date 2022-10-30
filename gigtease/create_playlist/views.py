@@ -35,7 +35,7 @@ def create_playlist(request):
         '&show_dialog=true'
     )
 
-    return render(request, 'pages/create-playlist.html', {
+    return render(request, 'pages/create-playlistv2.html', {
         'default_miles': default_miles,
         'redirect_uri': redirect_uri,
         'spotify_authorize_url': spotify_authorize_url,

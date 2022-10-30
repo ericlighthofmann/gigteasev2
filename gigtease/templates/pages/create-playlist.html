@@ -30,6 +30,9 @@
   <!-- custom CSS file -->
   <link href="{% static 'custom/css/create-playlist.css' %}" rel="stylesheet"/>
 
+  <!-- footer CSS file -->
+  <link href="{% static 'custom/css/footer.css' %}" rel="stylesheet"/>
+
   <!-- Title -->
   <title>GigTease - Create Playlist</title>
 
@@ -40,12 +43,10 @@
 
 <body>
 
-<!-- navbar include -->
-
-
 <div class="image-container set-full-height whole-page-container"
      style="display: none; background-image: url({% static 'assets/img/covers/concert4.jpg' %})">
 
+  <!-- navbar include -->
   {% include "partials/navbar.html" %}
 
   <!--   Big container   -->

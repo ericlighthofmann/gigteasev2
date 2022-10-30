@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'assets/favicon/favicon-gigtease.ico' %}" type="image/x-icon"/>
+
+  <!-- Map CSS -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"/>
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/libs.bundle.css' %}"/>
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/theme.bundle.css' %}"/>
+
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <!--     Fonts and icons     -->
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+  <!-- jquery animate -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- custom CSS file -->
+  <link href="{% static 'custom/css/create-playlistv2.css' %}" rel="stylesheet"/>
+
+  <!-- footer CSS file -->
+  <link href="{% static 'custom/css/footer.css' %}" rel="stylesheet"/>
+
+  <!-- Title -->
+  <title>GigTease - Create Playlist</title>
+
+</head>
+
+<body>
+<div class="image-container set-full-height whole-page-container"
+     style="display: none; background-image: url({% static 'assets/img/covers/cover-concert.jpg' %})"
+>
+
+  {% include "partials/navbar.html" %}
+
+  <div id="wizard-container" class="container d-flex justify-content-center align-items-center">
+
+    <!-- authorize-spotify-card -->
+    <div id="authorize-spotify-card" class="card wizard-content-card">
+
+      <div id="authorize-spotify-content" class="card-body text-center wizard-content-card-body">
+        <div id="authorize-spotify-container">
+          <h2 class="text-primary">Authorize Spotify</h2>
+          <p class="mt-0" id="authorize-spotify-explanation">First thing's first - click the button below to authorize
+            GigTease to
+            access your Spotify
+            account. </br>Don't worry, we'll only request permissions to create playlists!</p>
+          <hr>
+          <a href='{{ spotify_authorize_url }}' type="button" class="btn btn-lg btn-outline-primary"
+             id="authorize-spotify-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-spotify"
+                 viewBox="0 0 16 16">
+              <path
+                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.669 11.538a.498.498 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686zm.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858zm.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288z"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- navigation buttons -->
+        {% include 'partials/create-playlist-navigation-buttons.html' with disable_previous="disabled" %}
+        <!-- end navigation buttons -->
+      </div>
+
+    </div>
+    <!-- end authorize-spotify-card -->
+
+    <!-- location-card -->
+    <div id="location-card" class="card wizard-content-card" style="display: none;">
+
+      <div id="location-content" class="card-body text-center wizard-content-card-body">
+        <div id="location-container">
+          <h2 class="text-primary">Set Your Location</h2>
+          <p class="mt-0">Next, give us some information about your location or where you're looking to find upcoming
+            concerts.</p>
+          <hr>
+          <div class="row">
+            <div id="geocoder" class="geocoder float-end"></div>
+          </div>
+          <div id="map-container" style="height: 300px; display: flex; align-items: center;">
+            <div id="map-loading-spinner" style="width: 100%;">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            <div id='map' style='width: 100%; height: 300px; display: none;'></div>
+          </div>
+          <div class="row mt-5">
+            <div class='col-12'>
+              <label id='distance-slider-output' for='distance-slider' class='no-margin-label'>Distance to
+                search for shows: 5 miles</label>
+              <div class="distance-slider-container">
+                <input id="distance-slider" type="range" min="5" max="180" value="{{ default_miles }}"
+                       class="form-range"
+                       step="5">
+              </div>
+
+              <p class=""><small>Note: at this time we are only able to support the US and Canada. We are
+                working on supporting additional countries.</small></p>
+            </div>
+          </div>
+
+          <!-- navigation buttons -->
+          {% include 'partials/create-playlist-navigation-buttons.html' %}
+          <!-- end navigation buttons -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- genres card -->
+    <div id="genres-card" class="card wizard-content-card" style="display: none;">
+
+      <div id="genres-content" class="card-body text-center wizard-content-card-body">
+        <div id="genres-container">
+          <h2 class="text-primary">Select Your Genres</h2>
+          <p class="mt-0">Next, let us know what kind of genres you like to listen to.</br>
+            <small>
+              Note: in an upcoming feature release, we are planning on adding the ability to scan one of
+              your
+              playlists to get a better idea of your music tastes.
+            </small></p>
+          <hr>
+          <select id='genres-select' name="genres-select" multiple
+                  data-placeholder='Leave blank to select all genres.'>
+            <option value="rock">Rock</option>
+            <option value="alternative">Alternative</option>
+            <option value="country">Country</option>
+            <option value="pop">Pop</option>
+            <option value="indie">Indie</option>
+            <option value="punk">Punk</option>
+            <option value="blues">Blues</option>
+            <option value="soul">Soul</option>
+            <option value="rock">Rock</option>
+            <option value="folk">Folk</option>
+            <option value="jazz">Jazz</option>
+            <option value="reggae">Reggae</option>
+            <option value="classic_rock">Classic Rock</option>
+            <option value="hard_rock">Hard Rock</option>
+            <option value="electronic">Electronic</option>
+            <option value="rnb">Rnb</option>
+            <option value="hip_hop">Hip Hop</option>
+            <option value="rap">Rap</option>
+            <option value="funk">Funk</option>
+            <option value="latin">Latin</option>
+            <option value="classical">Classical</option>
+            <option value="techno">Techno</option>
+          </select>
+        </div>
+
+        <!-- navigation buttons -->
+        {% include 'partials/create-playlist-navigation-buttons.html' %}
+        <!-- end navigation buttons -->
+      </div>
+
+    </div>
+    <!-- end genres card -->
+
+    <!-- time-period card -->
+    <div id="time-period-card" class="card wizard-content-card" style="display: none;">
+
+      <div id="time-period-content" class="card-body text-center wizard-content-card-body">
+        <div id="time-period-container">
+          <h2 class="text-primary">Set Your Time Period</h2>
+          <p class="mt-0">Finally, let us know how far into the future you want GigTease to look for shows coming to
+            your town.</br> Use the slider or input a custom date range into the boxes below.
+          </p>
+          <hr>
+          <!-- range slider for dates -->
+          <div class="d-flex justify-content-center ">
+            <div class="mt-5">
+
+              <!-- range slider for dates -->
+              <div class="row">
+                <div class="col-12 col-xs-12">
+                  <label id='time-period-slider-output' for='time-period-slider' class='no-margin-label'>Looking
+                    for
+                    shows happening in the next 3 weeks.</label>
+                  <input id="time-period-slider" type="range" min="1" max="24" value="3"
+                         class="form-range"
+                         step="1">
+                </div>
+              </div>
+
+              <!-- start date and end date pickers -->
+
+              <div class="input-group input-daterange">
+
+                <input type="text" class="form-control custom-form-control datepicker-range"
+                       id="datepicker-start"
+                       placeholder="Input your start date.">
+                <div class="input-group-text " style="color: black; border: none;"> to</div>
+                <input type="text" class="form-control custom-form-control datepicker-range"
+                       id="datepicker-end"
+                       placeholder="Input your end date.">
+
+
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- navigation buttons -->
+          {% include 'partials/create-playlist-navigation-buttons.html' with show_finish="show" %}
+          <!-- end navigation buttons -->
+        </div>
+
+      </div>
+      <!-- end time-period-card -->
+
+    </div>
+
+  </div>
+</body>
+
+<!-- theme js -->
+<script src="{% static 'assets/js/theme.bundle.js' %}"></script>
+<script src="{% static 'assets/js/vendor.bundle.js' %}"></script>
+
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+<!-- isotope -->
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+<!--mapbox-->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet'/>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+      type="text/css">
+<script src='https://npmcdn.com/mapbox-gl-circle/dist/mapbox-gl-circle.min.js'></script>
+<!--dropdown package for multi selects-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- bootstrap date picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- moment js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<!-- bootstrap icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- page specific js -->
+
+<!-- dev mode -->
+<script>
+  $('#authorize-spotify-card').hide();
+  $('#time-period-card').show();
+  {#$('#map-loading-spinner').hide();#}
+  {#$('#map').fadeIn(1000);#}
+  //map.resize();
+
+</script>
+
+<!-- on load, fade in the page and set the correct navbar if on mobile -->
+<script>
+  $('.image-container').fadeIn(1500);
+  if ($(window).width() < 600) {
+    $('.navbar').removeClass('navbar-dark');
+    $('.navbar').addClass('navbar-light');
+    $('.navbar').addClass('bg-white');
+  }
+</script>
+
+<!-- animation helper -->
+<script>
+  const animateCSS = (element, animation, prefix = 'animate__') =>
+    // We create a Promise and return it
+    new Promise((resolve, reject) => {
+      const animationName = `${prefix}${animation}`;
+      const node = document.querySelector(element);
+
+      node.style.setProperty('--animate-duration', '0.5s');
+      node.classList.add(`${prefix}animated`, animationName);
+
+      // When the animation ends, we clean the classes and resolve the Promise
+      function handleAnimationEnd(event) {
+        event.stopPropagation();
+        node.classList.remove(`${prefix}animated`, animationName);
+        resolve('Animation ended');
+      }
+
+      node.addEventListener('animationend', handleAnimationEnd, {once: true});
+    });
+</script>
+
+<!-- on click of .next-button, .previous-button slide to the next part of the wizard -->
+<script>
+  $(document).on("click", ".previous-button, .next-button", function () {
+    // see if it's the next button or previous button
+    let buttonType = $(this).text().toLowerCase().trim();
+    // get the currently displayed div
+    let displayedCardID = $('.wizard-content-card:visible').attr('id');
+    // set the order of our cards
+    let cardOrder = ['authorize-spotify-card', 'location-card', 'genres-card', 'time-period-card']
+    let cardIndex = cardOrder.indexOf(displayedCardID);
+
+    let cardToFadeOut = '#' + displayedCardID;
+    if (buttonType === 'next') {
+      cardToFadeIn = '#' + cardOrder[cardIndex + 1];
+      initialFade = 'fadeOutLeftBig';
+      secondaryFade = 'fadeInRightBig';
+    } else if (buttonType === 'previous') {
+      cardToFadeIn = '#' + cardOrder[cardIndex - 1];
+      initialFade = 'fadeOutRightBig';
+      secondaryFade = 'fadeInLeftBig';
+    }
+
+    // account for people going back and forth
+     var current_url = window.location.toString();
+    if (cardToFadeIn === '#authorize-spotify-card' && current_url.indexOf('code=') >= 0) {
+      $('.next-button').removeClass('disabled');
+    }
+    if (cardToFadeIn === '#location-card' && !currentLatitude) {
+      $('.next-button').addClass('disabled');
+    }
+
+
+    animateCSS(cardToFadeOut, initialFade).then((message) => {
+      $(cardToFadeOut).hide();
+      $(cardToFadeIn).show();
+      animateCSS(cardToFadeIn, secondaryFade).then((message) => {
+        if (cardToFadeIn === '#location-card') {
+          $('#map-loading-spinner').hide();
+          $('#map').fadeIn(1000);
+          map.resize();
+        } else if (cardToFadeIn === '#genres-card') {
+          // we have to open it up otherwise the placeholder text is cut off...dumb
+          $('#genres-select').select2('open');
+        }
+      })
+    });
+
+  });
+</script>
+
+<!-- common variables -->
+<script>
+  spotifyCheckmarkAnimated = false;
+  const mapboxglAccessToken = 'pk.eyJ1IjoiZWhvZm1hbm4iLCJhIjoiY2w4ZXlzeWFiMGxkeDN2cDlud2xjMGoxayJ9.876VNl--yb5DryFs9wkiTg';
+  spotifyAuthed = false;
+  currentLatitude = null;
+  currentLongitude = null;
+  currentZipCode = null;
+  currentCity = null;
+  mapBoxMarker = null;
+  mapBoxCircle = null;
+  defaultMiles = $("#distance-slider").val();
+  currentDistanceMeters = getMeters(defaultMiles);
+  defaultZoom = 7;
+  defaultTimePeriod = 3;
+
+  // convert meteres to miles
+  function getMeters(miles) {
+    return miles * 1609.344;
+  }
+
+  // remove existing map markers and proximity circles
+  function cleanMap() {
+    if (mapBoxMarker) {
+      mapBoxMarker.remove();
+      mapBoxMarker = null;
+    }
+    if (mapBoxCircle) {
+      mapBoxCircle.remove();
+      mapBoxCircle = null;
+    }
+    currentLatitude = null;
+    currentLongitude = null;
+
+  }
+</script>
+
+<!-- bootstrap datepicker stuff -->
+<script>
+  $('.input-daterange input').each(function () {
+    $(this).datepicker('clearDates');
+    $(this).datepicker('setStartDate', new Date())
+    $(this).datepicker('setEndDate', moment().add(24, 'weeks').add(1, 'days').toDate())
+  });
+</script>
+
+<!-- on change of time-period-slider, update the label and the date pickers with the dates -->
+<script>
+  $(document).ready(function () {
+    // set starting dates
+    $('#datepicker-start').datepicker('setDate', new Date());
+    $('#datepicker-end').datepicker('setDate', moment().add(3, 'weeks').toDate());
+    let timePeriodSlider = $("#time-period-slider");
+    let timePeriodSliderOutput = $("#time-period-slider-output");
+    let baseText = 'Looking for shows happening in the next '
+    timePeriodSliderOutput.text(baseText + defaultTimePeriod + ' weeks'); // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    $(document).on('input', '#time-period-slider', function () {
+        let newTimePeriod = $(this).val();
+        let timePeriodLabel = newTimePeriod + ' weeks'
+        if (newTimePeriod == 1) {
+          timePeriodLabel = 'week'
+        }
+        timePeriodSliderOutput.text(baseText + timePeriodLabel);
+        $('#datepicker-start').datepicker('setDate', moment().toDate());
+        $('#datepicker-end').datepicker('setDate', moment().add(newTimePeriod, 'weeks').toDate());
+      }
+    )
+    ;
+  });
+</script>
+
+<!-- check to see if the access token is in the URL and disable auth button if so -->
+<script>
+  $(document).ready(function () {
+    var current_url = window.location.toString();
+    if (current_url.indexOf('code=') >= 0) {
+      $('#authorize-spotify-button').html(
+        '<svg id="spotify-checkmark" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">' +
+        '<circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>' +
+        '<path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>' +
+        '</svg>'
+      )
+      $('.next-button').removeClass('disabled');
+      $('#authorize-spotify-button').addClass('disabled');
+      $('#authorize-spotify-explanation').text("Looks like your Spotify is all hooked up - hit next to continue.")
+      spotifyAuthed = true;
+    } else {
+      $('.next-button').addClass('disabled');
+    }
+  });
+</script>
+
+<!-- create new mapbox Map object -->
+<script>
+  mapboxgl.accessToken = mapboxglAccessToken;
+  const map = new mapboxgl.Map({
+    container: 'map',
+    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+    style: 'mapbox://styles/mapbox/streets-v11',
+    // long, lat
+    center: [-99.69, 39.15],
+    zoom: 2.5
+  });
+
+  // Add the search control to the map.
+  geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    marker: {color: "#ED4933"},
+    //collapsed: true,
+    placeholder: 'Search for a city...',
+    countries: 'US,CA',
+    types: 'place',
+    //erich: i don't know how to limit it to just cities...doesnt seem to work
+    //https://stackoverflow.com/a/64128949
+  })
+  // below adds the geocoder above the graph
+  // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+  // below adds it to the map
+  map.addControl(geocoder);
+
+  // on clear of the search control, do something
+  geocoder.on('clear', function () {
+    cleanMap();
+    $('.next-button').addClass('disabled');
+  })
+
+  // on result of search control, add circle
+  geocoder.on('result', function (e) {
+    cleanMap();
+    currentLongitude = e['result']['center'][0];
+    currentLatitude = e['result']['center'][1];
+
+    mapBoxCircle = new MapboxCircle({lat: currentLatitude, lng: currentLongitude}, currentDistanceMeters, {
+      editable: false,
+      fillColor: "#ED4933"
+    }).addTo(map);
+
+    map.flyTo({
+      center: [currentLongitude, currentLatitude],
+      zoom: defaultZoom,
+    })
+
+    $('.next-button').removeClass('disabled');
+  });
+</script>
+
+<!-- prompt user for current location and move map if granted -->
+<script>
+  // function to display the allow location prompt when accessing the map tab
+  function onVisible(element, callback) {
+    new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          callback(element);
+          observer.disconnect();
+        }
+      });
+    }).observe(element);
+  }
+
+  function PromptUserForLocation() {
+    window.navigator.geolocation
+      .getCurrentPosition(
+        updateMapWithUserLocation, console.log
+      );
+  }
+
+  onVisible(document.querySelector("#map"), () => [map.resize(), PromptUserForLocation()]);
+
+  // update the map with the users location on acceptance of prompt
+  function updateMapWithUserLocation(responseObj) {
+    currentLatitude = responseObj['coords']['latitude']
+    currentLongitude = responseObj['coords']['longitude']
+    let fetchUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + currentLongitude + ',' + currentLatitude + '.json?&access_token=' + mapboxglAccessToken
+
+    function fillInSearchWithCurrentLocation(data) {
+      currentCity = data['features'][3]['place_name'];
+      // the first way sets in the input correctly but shows the search result dropdown - annoying
+      //geocoder.setInput(currentCity, false);
+      // the second way sets the input but removes the X clear on input, need to reset - hacky but we're usin it
+      geocoder._setInputValue(currentCity)
+      $('.mapboxgl-ctrl-geocoder--button').show();
+    }
+
+    fetch(fetchUrl)
+      .then((response) => response.json())
+      .then((data) => fillInSearchWithCurrentLocation(data));
+    map.flyTo({
+      center: [currentLongitude, currentLatitude],
+      zoom: defaultZoom,
+    })
+    mapBoxMarker = new mapboxgl.Marker({
+      color: "#ED4933",
+    }).setLngLat([currentLongitude, currentLatitude]).addTo(map);
+
+    mapBoxCircle = new MapboxCircle({lat: currentLatitude, lng: currentLongitude}, getMeters(defaultMiles), {
+      editable: false,
+      fillColor: "#ED4933"
+    }).addTo(map);
+
+    $('.next-button').removeClass('disabled');
+
+  }
+
+</script>
+
+<!-- distance-slider functionality -->
+<script>
+  $(document).ready(function () {
+    let distanceSlider = $("#distance-slider");
+    let distanceSliderOutput = $("#distance-slider-output");
+    let baseText = 'Distance to search for upcoming concerts: '
+    distanceSliderOutput.text(baseText + defaultMiles + ' miles'); // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    $(document).on('input', '#distance-slider', function () {
+        let newDistance = $(this).val();
+        let distance_label = 'miles';
+        if (newDistance == 1) {
+          distance_label = 'mile'
+        }
+        distanceSliderOutput.text(baseText + newDistance + ' ' + distance_label);
+        //update radius on map
+        // convert miles to meters
+        currentDistanceMeters = getMeters(newDistance);
+        mapBoxCircle.setRadius(currentDistanceMeters);
+      }
+    )
+    ;
+  });
+</script>
+
+<!--genre multi select-->
+<script>
+  $(document).ready(function () {
+    $('#genres-select').select2({
+      'width': '50%',
+      allowClear: true,
+      mobile: true,
+      dropdownParent: $('#genres-content')
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var target = $(e.target).attr("href") // activated tab
+      if (target == '#genres-tab') {
+        // we have to open it up otherwise the placeholder text is cut off...dumb
+        $('#genres-select').select2('open');
+      }
+    });
+  });
+</script>
+
+<!-- on change of time period fields, add disabled to finish button if blank -->
+<script>
+  function disableFinishButton() {
+    datepickerStartVal = $('#datepicker-start').val();
+    datepickerEndVal = $('#datepicker-end').val();
+    console.log(datepickerStartVal);
+    console.log(datepickerEndVal);
+    console.log('------------------')
+    if (datepickerStartVal === '' || datepickerEndVal === '') {
+      $('.finish-button').addClass('disabled');
+    }
+    else {
+      $('.finish-button').removeClass('disabled');
+    }
+  }
+
+  $('#datepicker-start').change( function() {
+    disableFinishButton();
+  });
+  $('#datepicker-end').change( function() {
+    disableFinishButton();
+  });
+</script>
+
+<!-- enable create playlist button if all required fields are filled out -->
+<script>
+  $('.finish-button').on('click', function (e) {
+    startDate = $('#datepicker-start').data('datepicker').getFormattedDate('yyyy-mm-dd');
+    endDate = $('#datepicker-end').data('datepicker').getFormattedDate('yyyy-mm-dd');
+
+    // if forms are all filled out, collect the user selections and POST them to an endpoint
+    let payload = {
+      'locationZip': null,
+      'locationName': null,
+      'genres[]': [],
+      'startDate': null,
+      'endDate': null,
+      'distance': null,
+      'task_id': null,
+    }
+    let code = window.location.toString().split('code=')[1].split('&state=')[0];
+    // get currentCity and currentZipCode from mapbox and update payload
+    let fetchUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + currentLongitude + ',' + currentLatitude + '.json?&access_token=' + mapboxglAccessToken;
+
+    function getCurrentCityAndZip(data) {
+      // response object (data) can be a variable length, need to find by id
+      zipCodeIdx = data['features'].findIndex(x => x.id.includes('postcode'));
+      cityIdx = data['features'].findIndex(x => x.id.includes('place'));
+      currentCity = data['features'][cityIdx]['text'];
+      currentZipCode = data['features'][zipCodeIdx]['text'];
+      payload['locationZip'] = currentZipCode;
+      payload['locationName'] = currentCity;
+    }
+
+    fetch(fetchUrl)
+      .then((response) => response.json())
+      .then((data) => getCurrentCityAndZip(data))
+      .then(() => {
+        // collect genres
+        currentGenres = $('#genres-select').val();
+        payload['genres[]'] = currentGenres;
+        // collect timePeriod
+        startDate = $('#datepicker-start').data('datepicker').getFormattedDate('mm/dd/yyyy');
+        endDate = $('#datepicker-end').data('datepicker').getFormattedDate('mm/dd/yyyy');
+        payload['startDate'] = startDate;
+        payload['endDate'] = endDate;
+        // collect distance
+        currentDistance = $('#distance-slider').val();
+        payload['distance'] = currentDistance;
+
+        // display sweet alert with the payload collected and confirm playlist creation
+        function formatGenresForDisplay(genres) {
+          console.log(genres);
+          if (genres.length == 0) {
+            return 'All genres selected'
+          } else {
+            return genres.map(function (genre) {
+              return " " + genre.toLocaleString().replace('_', ' ');
+            });
+          }
+        }
+
+        Swal.fire({
+          iconHtml: '<img id="custom-sweetalert-icon" src="{% static 'assets/img/gigtease_brand_dark.jpg' %}">',
+          html:
+            '<strong>We\'ve collected the following parameters:</strong> </br></br>' +
+            '<b>Location: </b>' + payload['locationName'] + '</br>' +
+            '<b>Distance: </b>' + payload['distance'] + ' mile radius </br>' +
+            '<b>Genres: </b>' + formatGenresForDisplay(payload['genres[]']) + '</br>' +
+            '<b>Time Period: </b>' + payload['startDate'] + ' to ' + payload['endDate'],
+          showCancelButton: true,
+          focusConfirm: true,
+          reverseButtons: true,
+          confirmButtonColor: '#bb3b2a',
+          confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> Let\'s go!',
+          cancelButtonText: 'Keep editing',
+          preConfirm: function () {
+            $('.swal2-confirm').html(
+              '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' +
+              '<span> Working...</span>'
+            )
+            $('.swal2-confirm').addClass('disabled');
+            // get access token from get-access-token-spotify-view
+            $.post("/get-access-token-spotify/",
+              {code: code},
+              function (data, status) {
+                let auth_token = data['access_token'];
+                payload['auth_token'] = auth_token;
+                move_to_create_playlist_in_progress();
+
+                function move_to_create_playlist_in_progress() {
+                  let task_id = Date.now().toString(36) + Math.random().toString(36).substring(2);
+                  payload['task_id'] = task_id;
+                  // write payload and task id to database
+                  $.post("/write-payload-and-task-id-to-db/",
+                    payload,
+                    function (data, status) {
+                      window.location.replace("/create-playlist-in-progress/" + task_id);
+                    }
+                  )
+                }
+              }
+            ).fail(function (response) {
+              //alert ('that didnt work')
+            });
+            return false
+          }
+        })
+      });
+  });
+</script>
+
+</html>
+

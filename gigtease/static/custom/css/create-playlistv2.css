@@ -1,0 +1,233 @@
+.image-container {
+  min-height: 100vh;
+  background-position: center center;
+  background-size: cover;
+}
+
+#wizard-container {
+  min-height: 100vh;
+}
+
+.wizard-content-card-body {
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 10px 10px 37px -3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 37px -3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 37px -3px rgba(0, 0, 0, 0.75);
+}
+
+.wizard-content-card {
+  border: solid 1px grey;
+}
+
+#authorize-spotify-button {
+  width: 50%;
+}
+
+.datepicker-range {
+  border: solid 1px grey;
+}
+
+/* navigation-button */
+.navigation-button {
+  border-radius: 24px;
+}
+
+.navigation-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+/* previous-button */
+.previous-button:hover, .previous-button:focus, .previous-button:active, .previous-button.active, .open > .dropdown-toggle.previous-button {
+  background-color: white !important;
+  color: #bb3b2a !important;
+  border-color: #bb3b2a;
+}
+
+.previous-button span:before {
+  content: ' \00AB';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -70px;
+  transition: 0.5s;
+}
+
+.previous-button:hover span {
+  padding-left: 25px;
+}
+
+.previous-button:hover span:before {
+  opacity: 1;
+  right: 0;
+}
+
+#custom-sweetalert-icon {
+  height: 7vh;
+  width: 30vh;
+}
+
+.swal2-icon {
+  border-color: white !important;
+}
+
+#swal2-html-container {
+  margin: 0 !important;
+}
+
+/* next-button */
+.next-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.next-button:hover span {
+  padding-right: 25px;
+}
+
+.next-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+/*checkbox*/
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #ED4933;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 2% auto;
+  box-shadow: inset 0px 0px 0px #ED4933;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #ED4933;
+  }
+}
+
+/* media queries */
+@media only screen and (max-width: 376px) {
+.input-group-text {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    overflow: visible !important;
+  }
+
+  .datepicker-range {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+    max-width: 30vw !important;
+  }
+
+  #datepicker-start {
+    margin-right: 8vw !important;
+  }
+
+  #datepicker-end {
+    margin-left: 8vw !important
+  }
+}
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: 600px) {
+  #wizard-container {
+    min-height: 100vh;
+  }
+
+  #location-card {
+    margin-top: 13vh;
+  }
+
+  #location-container {
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+    margin: 5px 10px 0 0 !important;
+    width: 90%;
+  }
+
+  .select2 {
+    width: 100% !important;
+  }
+
+}
+
+/* Small screen devices (600px and above) */
+@media only screen and (min-width: 601px) {
+  #wizard-container {
+    min-height: 100vh;
+  }
+
+  #location-card {
+    margin-top: 10vh;
+  }
+}
+
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Big screen devices (889px and above) */
+@media only screen and (min-width: 889px) {
+  #wizard-container {
+    min-height: 100vh;
+  }
+
+  #location-card {
+    margin-top: 7vh;
+  }
+}
+
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+
+}
